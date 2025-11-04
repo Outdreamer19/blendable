@@ -1,0 +1,38 @@
+<?php
+
+return [
+    'plans' => [
+        'free' => [
+            'price_gbp' => 0,
+            'monthly_tokens' => 25000,
+            'monthly_chats' => 50,
+            'models' => ['gpt-4o-mini', 'claude-3-haiku', 'gemini-flash'],
+            'features' => ['basic_chat'],
+        ],
+        'pro' => [
+            'price_gbp' => 19,
+            'monthly_tokens' => 500000,
+            'models' => ['gpt-4o', 'claude-3.5-sonnet', 'gemini-1.5-pro', 'gemini-flash', 'claude-3-haiku', 'gpt-4o-mini'],
+            'features' => ['file_uploads', 'priority_queue', 'saved_prompts'],
+        ],
+        'business' => [
+            'price_gbp' => 79,
+            'monthly_tokens' => 2000000,
+            'seats_included' => 5,
+            'models' => ['*'],
+            'features' => ['team_workspace', 'shared_memory', 'analytics', 'roles'],
+        ],
+    ],
+
+    'overage' => [
+        'price_gbp' => 5,
+        'tokens' => 100000,
+    ],
+
+    'stripe' => [
+        'prices' => [
+            'pro' => env('STRIPE_PRO_PRICE_ID'),
+            'business' => env('STRIPE_BUSINESS_PRICE_ID'),
+        ],
+    ],
+];

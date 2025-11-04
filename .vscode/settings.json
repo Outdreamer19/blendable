@@ -1,0 +1,27 @@
+{
+  "files.exclude": {
+    "../academy": true,
+    "../bell": true,
+    "../blossom": true,
+    "../bsc": true,
+    "../example": true,
+    "../font": true,
+    "../hardball": true,
+    "../invoice": true,
+    "../marketplace": true,
+    "../pip": true,
+    "../portfolio": true,
+    "../registration.zip": true,
+    "../registration": true,
+    "../restaurant-cms-template": true,
+    "../resume": true,
+    "../search_engine_project.zip": true,
+    "../search_engine_project": true,
+    "../ship": true,
+    "../siz": true,
+    "../smokehouse": true,
+    "../storage": true,
+    "../varus.ai": true
+  },
+  "git.ignoreLimitWarning": true
+}

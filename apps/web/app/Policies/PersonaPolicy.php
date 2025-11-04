@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Persona;
+use App\Models\User;
+
+class PersonaPolicy
+{
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny(User $user): bool
+    {
+        return true; // Users can view personas in their workspace
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     */
+    public function view(User $user, Persona $persona): bool
+    {
+        return $user->canAccessWorkspace($persona->workspace);
+    }
+
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create(User $user): bool
+    {
+        return true; // Users can create personas in their workspace
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, Persona $persona): bool
+    {
+        return $user->canAccessWorkspace($persona->workspace);
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, Persona $persona): bool
+    {
+        return $user->canAccessWorkspace($persona->workspace);
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function restore(User $user, Persona $persona): bool
+    {
+        return false;
+    }
+
+    /**
+     * Determine whether the user can permanently delete the model.
+     */
+    public function forceDelete(User $user, Persona $persona): bool
+    {
+        return false;
+    }
+}

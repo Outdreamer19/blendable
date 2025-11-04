@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Test Chat",
+    "mapping": {
+      "message1": {
+        "message": {
+          "author": {
+            "role": "user"
+          },
+          "content": {
+            "parts": ["Hello, how are you?"]
+          },
+          "create_time": 1640995200
+        }
+      },
+      "message2": {
+        "message": {
+          "author": {
+            "role": "assistant"
+          },
+          "content": {
+            "parts": ["I'm doing well, thank you! How can I help you today?"]
+          },
+          "create_time": 1640995260
+        }
+      }
+    }
+  }
+]

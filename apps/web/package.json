@@ -1,0 +1,45 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build && vite build --ssr",
+        "dev": "vite",
+        "test": "playwright test",
+        "test:ui": "playwright test --ui",
+        "test:headed": "playwright test --headed",
+        "test:debug": "playwright test --debug"
+    },
+    "devDependencies": {
+        "@inertiajs/progress": "^0.2.7",
+        "@inertiajs/vue3": "^2.0.0",
+        "@playwright/test": "^1.56.0",
+        "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/vite": "^4.0.0",
+        "@tiptap/core": "^3.6.6",
+        "@tiptap/extension-link": "^3.6.6",
+        "@tiptap/starter-kit": "^3.6.6",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "@vue/server-renderer": "^3.4.0",
+        "autoprefixer": "^10.4.12",
+        "axios": "^1.12.2",
+        "chart.js": "^4.5.0",
+        "concurrently": "^9.0.1",
+        "dayjs": "^1.11.18",
+        "file-saver": "^2.0.5",
+        "laravel-vite-plugin": "^2.0.0",
+        "lucide-vue-next": "^0.545.0",
+        "pinia": "^3.0.3",
+        "postcss": "^8.4.31",
+        "tailwindcss": "^3.2.1",
+        "typescript": "^5.9.3",
+        "uppy": "^5.1.6",
+        "vite": "^7.0.7",
+        "vue": "^3.4.0",
+        "zod": "^4.1.12"
+    },
+    "dependencies": {
+        "@tailwindcss/typography": "^0.5.19",
+        "@tiptap/vue-3": "^3.6.6"
+    }
+}

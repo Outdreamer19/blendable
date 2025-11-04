@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Test Claude Chat",
+    "chat": [
+      {
+        "sender": "human",
+        "text": "Hello, how are you?",
+        "timestamp": "2022-01-01T00:00:00Z"
+      },
+      {
+        "sender": "assistant",
+        "text": "I'm doing well, thank you! How can I help you today?",
+        "timestamp": "2022-01-01T00:01:00Z"
+      }
+    ]
+  }
+]
