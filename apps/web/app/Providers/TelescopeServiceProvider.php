@@ -3,24 +3,34 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
-use Laravel\Telescope\IncomingEntry;
-use Laravel\Telescope\Telescope;
-use Laravel\Telescope\TelescopeApplicationServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
+class TelescopeServiceProvider extends ServiceProvider
 {
+    /**
+     * Check if Telescope is installed and available.
+     */
+    protected function isTelescopeAvailable(): bool
+    {
+        return class_exists('Laravel\Telescope\Telescope');
+    }
+
     /**
      * Register any application services.
      */
     public function register(): void
     {
+        if (! $this->isTelescopeAvailable()) {
+            return;
+        }
+
         // Telescope::night();
 
         $this->hideSensitiveRequestDetails();
 
         $isLocal = $this->app->environment('local');
 
-        Telescope::filter(function (IncomingEntry $entry) use ($isLocal) {
+        call_user_func(['Laravel\Telescope\Telescope', 'filter'], function ($entry) use ($isLocal) {
             return $isLocal ||
                    $entry->isReportableException() ||
                    $entry->isFailedRequest() ||
@@ -35,13 +45,17 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     protected function hideSensitiveRequestDetails(): void
     {
+        if (! $this->isTelescopeAvailable()) {
+            return;
+        }
+
         if ($this->app->environment('local')) {
             return;
         }
 
-        Telescope::hideRequestParameters(['_token']);
+        call_user_func(['Laravel\Telescope\Telescope', 'hideRequestParameters'], ['_token']);
 
-        Telescope::hideRequestHeaders([
+        call_user_func(['Laravel\Telescope\Telescope', 'hideRequestHeaders'], [
             'cookie',
             'x-csrf-token',
             'x-xsrf-token',
@@ -55,6 +69,10 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     protected function gate(): void
     {
+        if (! $this->isTelescopeAvailable()) {
+            return;
+        }
+
         Gate::define('viewTelescope', function ($user) {
             return in_array($user->email, [
                 //

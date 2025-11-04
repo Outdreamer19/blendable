@@ -1,49 +1,44 @@
 #!/bin/bash
 
-# Omni-AI Deployment Script
-# This script handles the deployment of the Omni-AI application
+# Laravel Forge Deployment Script
+# Updated for Laravel 12 with apps/web structure
 
-set -e
+$CREATE_RELEASE()
 
-echo "🚀 Starting Omni-AI deployment..."
+cd $FORGE_RELEASE_DIRECTORY
 
-# Check if .env file exists
-if [ ! -f "apps/web/.env" ]; then
-    echo "❌ .env file not found. Please create one from .env.example"
-    exit 1
-fi
+# Navigate to Laravel application directory
+cd apps/web
 
-# Load environment variables
-export $(cat apps/web/.env | grep -v '^#' | xargs)
+# Install PHP dependencies
+$FORGE_COMPOSER install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-# Build and start services
-echo "📦 Building and starting services..."
-docker-compose -f docker-compose.prod.yml up -d --build
+# Install Node.js dependencies and build assets (including SSR)
+npm ci && npm run build
 
-# Wait for database to be ready
-echo "⏳ Waiting for database to be ready..."
-sleep 10
+# Clear all caches before optimizing
+$FORGE_PHP artisan config:clear
+$FORGE_PHP artisan route:clear
+$FORGE_PHP artisan view:clear
+$FORGE_PHP artisan cache:clear
+
+# Optimize application
+$FORGE_PHP artisan config:cache
+$FORGE_PHP artisan route:cache
+$FORGE_PHP artisan view:cache
+$FORGE_PHP artisan event:cache
+
+# Create storage symlink
+$FORGE_PHP artisan storage:link
 
 # Run database migrations
-echo "🗄️ Running database migrations..."
-docker-compose -f docker-compose.prod.yml exec app php artisan migrate --force
+$FORGE_PHP artisan migrate --force
 
-# Seed the database
-echo "🌱 Seeding the database..."
-docker-compose -f docker-compose.prod.yml exec app php artisan db:seed --force
+# Return to release directory root
+cd $FORGE_RELEASE_DIRECTORY
 
-# Clear and cache configuration
-echo "⚡ Optimizing application..."
-docker-compose -f docker-compose.prod.yml exec app php artisan config:cache
-docker-compose -f docker-compose.prod.yml exec app php artisan route:cache
-docker-compose -f docker-compose.prod.yml exec app php artisan view:cache
+$ACTIVATE_RELEASE()
 
-# Set proper permissions
-echo "🔐 Setting permissions..."
-docker-compose -f docker-compose.prod.yml exec app chown -R www-data:www-data /var/www/html
-docker-compose -f docker-compose.prod.yml exec app chmod -R 755 /var/www/html/storage
-docker-compose -f docker-compose.prod.yml exec app chmod -R 755 /var/www/html/bootstrap/cache
-
-echo "✅ Deployment completed successfully!"
-echo "🌐 Application is available at: http://localhost"
-echo "📧 Mailpit is available at: http://localhost:8025"
+# Restart queue workers and Horizon
+$RESTART_QUEUES()
+$FORGE_PHP artisan horizon:terminate || true
