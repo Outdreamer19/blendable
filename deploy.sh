@@ -10,6 +10,10 @@ cd $FORGE_RELEASE_DIRECTORY
 # Navigate to Laravel application directory
 cd apps/web
 
+# CRITICAL: Remove cached config file manually to ensure fresh .env is loaded
+# This prevents stale config from using wrong database credentials
+rm -f bootstrap/cache/config.php
+
 # Install PHP dependencies
 $FORGE_COMPOSER install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
