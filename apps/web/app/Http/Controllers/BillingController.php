@@ -32,7 +32,7 @@ class BillingController extends Controller
         // Get current usage
         $currentUsage = [
             'words_used' => 0,
-            'words_limit' => 10000, // Free tier limit
+            'words_limit' => 0, // No free tier
             'api_calls' => 0,
             'api_calls_limit' => 100,
             'cost' => 0,

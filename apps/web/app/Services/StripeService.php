@@ -226,7 +226,7 @@ class StripeService
         if (! $team || ! $team->stripe_id) {
             return [
                 'has_subscription' => false,
-                'status' => 'free',
+                'status' => 'inactive',
                 'plan' => null,
                 'trial_ends_at' => null,
                 'current_period_end' => null,
@@ -238,7 +238,7 @@ class StripeService
         if (! $subscription) {
             return [
                 'has_subscription' => false,
-                'status' => 'free',
+                'status' => 'inactive',
                 'plan' => null,
                 'trial_ends_at' => null,
                 'current_period_end' => null,

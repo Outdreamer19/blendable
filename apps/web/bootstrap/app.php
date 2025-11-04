@@ -26,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'enforce.plan.limits' => \App\Http\Middleware\EnforcePlanLimits::class,
             'ensure.workspace' => \App\Http\Middleware\EnsureWorkspace::class,
+            'require.subscription' => \App\Http\Middleware\RequireSubscription::class,
         ]);
 
         // Exclude billing checkout from CSRF protection for anonymous users

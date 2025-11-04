@@ -12,14 +12,11 @@ class BillingSeeder extends Seeder
      */
     public function run(): void
     {
-        // Backfill existing users with free plan and reset billing period
-        User::whereNull('plan')
-            ->orWhere('plan', '')
-            ->update([
-                'plan' => 'free',
-                'token_usage_month' => 0,
-                'chat_count_month' => 0,
-                'billing_period_start' => now()->startOfMonth(),
-            ]);
+        // Reset billing period for existing users (no free plan assignment)
+        User::update([
+            'token_usage_month' => 0,
+            'chat_count_month' => 0,
+            'billing_period_start' => now()->startOfMonth(),
+        ]);
     }
 }

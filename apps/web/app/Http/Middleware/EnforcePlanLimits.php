@@ -23,16 +23,31 @@ class EnforcePlanLimits
             return $next($request);
         }
 
-        $userPlan = $user->plan ?? 'free';
-        $plan = Plan::from($userPlan);
+        $userPlan = $user->plan;
+
+        if (! $userPlan) {
+            return response()->json([
+                'error' => 'Subscription required',
+                'message' => 'Please subscribe to a plan to access this feature.',
+                'subscription_required' => true,
+            ], 403);
+        }
+
+        try {
+            $plan = Plan::from($userPlan);
+        } catch (\ValueError $e) {
+            return response()->json([
+                'error' => 'Invalid plan',
+                'message' => 'Your plan configuration is invalid. Please contact support.',
+            ], 403);
+        }
+
         $planConfig = config("billing.plans.{$userPlan}");
 
-        // Check chat limits for free plan
-        if ($plan === Plan::FREE && $user->chat_count_month >= $planConfig['monthly_chats']) {
+        if (! $planConfig) {
             return response()->json([
-                'error' => 'Chat limit reached',
-                'message' => 'You have reached your monthly chat limit. Please upgrade to continue.',
-                'upgrade_required' => true,
+                'error' => 'Invalid plan',
+                'message' => 'Your plan configuration is invalid. Please contact support.',
             ], 403);
         }
 

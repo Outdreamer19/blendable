@@ -23,9 +23,9 @@ class PricingController extends Controller
             ];
         });
 
-        return Inertia::render('Pricing', [
+        return Inertia::render('Marketing/Pricing', [
             'plans' => $plans,
-            'currentPlan' => $request->user()?->plan ?? 'free',
+            'currentPlan' => $request->user()?->plan ?? null,
             'isAuthenticated' => $request->user() !== null,
         ]);
     }
