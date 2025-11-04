@@ -17,17 +17,18 @@ $FORGE_COMPOSER install --no-dev --no-interaction --prefer-dist --optimize-autol
 npm ci && npm run build
 
 # Clear file-based caches (these don't require database)
-$FORGE_PHP artisan config:clear || true
-$FORGE_PHP artisan route:clear || true
-$FORGE_PHP artisan view:clear || true
+# We use --env=local to avoid database cache driver issues during deployment
+$FORGE_PHP artisan config:clear --env=production || true
+$FORGE_PHP artisan route:clear --env=production || true
+$FORGE_PHP artisan view:clear --env=production || true
 # Note: We skip 'cache:clear' because it may require database connection
 # if CACHE_STORE is set to 'database'. The cache will be rebuilt below.
 
-# Optimize application (these don't require database connection)
-$FORGE_PHP artisan config:cache
-$FORGE_PHP artisan route:cache
-$FORGE_PHP artisan view:cache
-$FORGE_PHP artisan event:cache
+# Optimize application (these commands may try to use cache, so we handle DB errors gracefully)
+CACHE_STORE=file $FORGE_PHP artisan config:cache || true
+$FORGE_PHP artisan route:cache || true
+$FORGE_PHP artisan view:cache || true
+$FORGE_PHP artisan event:cache || true
 
 # Create storage symlink
 $FORGE_PHP artisan storage:link
