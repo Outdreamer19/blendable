@@ -83,6 +83,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect to billing page to subscribe instead of dashboard
+        return redirect(route('billing.index', absolute: false))
+            ->with('info', 'Please subscribe to a plan to get started.');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\PricingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromptController;
 use App\Http\Controllers\PromptFolderController;
@@ -24,9 +25,7 @@ Route::get('/', function () {
     return Inertia::render('Marketing/Homepage');
 })->name('home');
 
-Route::get('/pricing', function () {
-    return Inertia::render('Marketing/Pricing');
-})->name('pricing');
+Route::get('/pricing', [PricingController::class, 'index'])->name('pricing');
 
 Route::get('/blog', function () {
     return Inertia::render('Marketing/BlogIndex', [
@@ -89,69 +88,71 @@ Route::get('/shared/{chat:share_token}', [ChatController::class, 'showShared'])-
 
 // Authenticated routes
 Route::middleware(['auth'])->group(function () {
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Dashboard - requires subscription
+    Route::middleware(['require.subscription'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Teams
-    Route::resource('teams', TeamController::class);
-    Route::post('/teams/{team}/invite', [TeamController::class, 'invite'])->name('teams.invite');
-    Route::delete('/teams/{team}/members/{user}', [TeamController::class, 'removeMember'])->name('teams.remove-member');
+        // Teams
+        Route::resource('teams', TeamController::class);
+        Route::post('/teams/{team}/invite', [TeamController::class, 'invite'])->name('teams.invite');
+        Route::delete('/teams/{team}/members/{user}', [TeamController::class, 'removeMember'])->name('teams.remove-member');
 
-    // Workspaces
-    Route::resource('workspaces', WorkspaceController::class);
-    Route::post('/workspaces/{workspace}/invite', [WorkspaceController::class, 'invite'])->name('workspaces.invite');
-    Route::delete('/workspaces/{workspace}/members/{user}', [WorkspaceController::class, 'removeMember'])->name('workspaces.remove-member');
+        // Workspaces
+        Route::resource('workspaces', WorkspaceController::class);
+        Route::post('/workspaces/{workspace}/invite', [WorkspaceController::class, 'invite'])->name('workspaces.invite');
+        Route::delete('/workspaces/{workspace}/members/{user}', [WorkspaceController::class, 'removeMember'])->name('workspaces.remove-member');
 
-    // Chats
-    Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
-    // Start a chat with a specific persona (creates and redirects to the chat)
-    Route::get('/chats/start', [ChatController::class, 'startWithPersona'])->name('chats.start');
-    Route::resource('chats', ChatController::class)
-        ->except(['index', 'edit', 'update'])
-        ->whereNumber('chat');
+        // Chats
+        Route::get('/chats', [ChatController::class, 'index'])->name('chats.index');
+        // Start a chat with a specific persona (creates and redirects to the chat)
+        Route::get('/chats/start', [ChatController::class, 'startWithPersona'])->name('chats.start');
+        Route::resource('chats', ChatController::class)
+            ->except(['index', 'edit', 'update'])
+            ->whereNumber('chat');
 
-    // Rate limited chat endpoints
-    Route::middleware(['throttle:60,1', 'enforce.plan.limits'])->group(function () {
-        Route::post('/chats/{chat}/send-message', [ChatController::class, 'sendMessage'])->name('chats.send-message');
-        Route::post('/chats/{chat}/send-message-enhanced', [ChatController::class, 'sendMessageWithTracking'])->name('chats.send-message-enhanced');
+        // Rate limited chat endpoints
+        Route::middleware(['throttle:60,1', 'enforce.plan.limits'])->group(function () {
+            Route::post('/chats/{chat}/send-message', [ChatController::class, 'sendMessage'])->name('chats.send-message');
+            Route::post('/chats/{chat}/send-message-enhanced', [ChatController::class, 'sendMessageWithTracking'])->name('chats.send-message-enhanced');
+        });
+
+        Route::post('/chats/{chat}/share', [ChatController::class, 'share'])->name('chats.share');
+        Route::delete('/chats/{chat}/unshare', [ChatController::class, 'unshare'])->name('chats.unshare');
+        Route::post('/chats/{chat}/switch-model', [ChatController::class, 'switchModel'])->name('chats.switch-model');
+        Route::post('/chats/{chat}/switch-persona', [ChatController::class, 'switchPersona'])->name('chats.switch-persona');
+        Route::post('/chats/{chat}/pin', [ChatController::class, 'pin'])->name('chats.pin');
+        Route::post('/chats/{chat}/rename', [ChatController::class, 'rename'])->name('chats.rename');
+        Route::post('/chats/{chat}/export', [ChatController::class, 'export'])->name('chats.export');
+
+        // Personas
+        Route::resource('personas', PersonaController::class);
+        Route::post('/personas/{persona}/attach-knowledge', [PersonaController::class, 'attachKnowledge'])->name('personas.attach-knowledge');
+        Route::delete('/personas/{persona}/detach-knowledge/{knowledge}', [PersonaController::class, 'detachKnowledge'])->name('personas.detach-knowledge');
+
+        // Prompts
+        Route::resource('prompts', PromptController::class);
+        Route::resource('prompt-folders', PromptFolderController::class);
+        Route::post('/prompts/{prompt}/favorite', [PromptController::class, 'favorite'])->name('prompts.favorite');
+        Route::delete('/prompts/{prompt}/unfavorite', [PromptController::class, 'unfavorite'])->name('prompts.unfavorite');
+        Route::get('/prompts/export', [PromptController::class, 'export'])->name('prompts.export');
+        Route::post('/prompts/import', [PromptController::class, 'import'])->name('prompts.import');
+        Route::post('/prompts/{prompt}/share', [PromptController::class, 'share'])->name('prompts.share');
+        Route::post('/prompts/{prompt}/unshare', [PromptController::class, 'unshare'])->name('prompts.unshare');
+
+        // Images
+        Route::resource('images', ImageController::class);
+        Route::post('/images/generate', [ImageController::class, 'generate'])->name('images.generate');
+        Route::get('/images/{imageJob}/status', [ImageController::class, 'status'])->name('images.status');
+        Route::get('/images/{imageJob}/download', [ImageController::class, 'download'])->name('images.download');
+        Route::post('/images/{imageJob}/regenerate', [ImageController::class, 'regenerate'])->name('images.regenerate');
+        Route::post('/images/{imageJob}/upscale', [ImageController::class, 'upscale'])->name('images.upscale');
+
+        // Usage
+        Route::get('/usage', [UsageController::class, 'index'])->name('usage.index');
+        Route::get('/usage/export', [UsageController::class, 'export'])->name('usage.export');
     });
 
-    Route::post('/chats/{chat}/share', [ChatController::class, 'share'])->name('chats.share');
-    Route::delete('/chats/{chat}/unshare', [ChatController::class, 'unshare'])->name('chats.unshare');
-    Route::post('/chats/{chat}/switch-model', [ChatController::class, 'switchModel'])->name('chats.switch-model');
-    Route::post('/chats/{chat}/switch-persona', [ChatController::class, 'switchPersona'])->name('chats.switch-persona');
-    Route::post('/chats/{chat}/pin', [ChatController::class, 'pin'])->name('chats.pin');
-    Route::post('/chats/{chat}/rename', [ChatController::class, 'rename'])->name('chats.rename');
-    Route::post('/chats/{chat}/export', [ChatController::class, 'export'])->name('chats.export');
-
-    // Personas
-    Route::resource('personas', PersonaController::class);
-    Route::post('/personas/{persona}/attach-knowledge', [PersonaController::class, 'attachKnowledge'])->name('personas.attach-knowledge');
-    Route::delete('/personas/{persona}/detach-knowledge/{knowledge}', [PersonaController::class, 'detachKnowledge'])->name('personas.detach-knowledge');
-
-    // Prompts
-    Route::resource('prompts', PromptController::class);
-    Route::resource('prompt-folders', PromptFolderController::class);
-    Route::post('/prompts/{prompt}/favorite', [PromptController::class, 'favorite'])->name('prompts.favorite');
-    Route::delete('/prompts/{prompt}/unfavorite', [PromptController::class, 'unfavorite'])->name('prompts.unfavorite');
-    Route::get('/prompts/export', [PromptController::class, 'export'])->name('prompts.export');
-    Route::post('/prompts/import', [PromptController::class, 'import'])->name('prompts.import');
-    Route::post('/prompts/{prompt}/share', [PromptController::class, 'share'])->name('prompts.share');
-    Route::post('/prompts/{prompt}/unshare', [PromptController::class, 'unshare'])->name('prompts.unshare');
-
-    // Images
-    Route::resource('images', ImageController::class);
-    Route::post('/images/generate', [ImageController::class, 'generate'])->name('images.generate');
-    Route::get('/images/{imageJob}/status', [ImageController::class, 'status'])->name('images.status');
-    Route::get('/images/{imageJob}/download', [ImageController::class, 'download'])->name('images.download');
-    Route::post('/images/{imageJob}/regenerate', [ImageController::class, 'regenerate'])->name('images.regenerate');
-    Route::post('/images/{imageJob}/upscale', [ImageController::class, 'upscale'])->name('images.upscale');
-
-    // Usage
-    Route::get('/usage', [UsageController::class, 'index'])->name('usage.index');
-    Route::get('/usage/export', [UsageController::class, 'export'])->name('usage.export');
-
-    // Billing
+    // Billing routes (accessible without subscription)
     Route::get('/billing', [BillingController::class, 'index'])->name('billing.index');
     Route::get('/billing/portal', [BillingController::class, 'portal'])->name('billing.portal');
     Route::get('/billing/success', [BillingController::class, 'success'])->name('billing.success');
@@ -172,6 +173,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 // Public billing routes (no authentication required)

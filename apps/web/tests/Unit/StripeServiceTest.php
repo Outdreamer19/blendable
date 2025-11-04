@@ -57,7 +57,7 @@ class StripeServiceTest extends TestCase
         $this->assertArrayHasKey('current_period_end', $status);
 
         $this->assertFalse($status['has_subscription']);
-        $this->assertEquals('free', $status['status']);
+        $this->assertEquals('inactive', $status['status']);
         $this->assertNull($status['plan']);
     }
 

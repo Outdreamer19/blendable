@@ -16,13 +16,11 @@ const isYearly = ref(false)
 const styledPlans = computed(() => {
 	return props.plans.map((plan, index) => {
 		const descriptions = {
-			'free': 'For individuals & new creators',
 			'pro': 'For freelancers & small teams',
 			'business': 'For growing teams & agencies'
 		}
 
 		const yearlyPrices = {
-			'free': 0,
 			'pro': 15, // 20% off from 19
 			'business': 63 // 20% off from 79
 		}
@@ -90,7 +88,7 @@ const testimonials = [
 				</h1>
 
 				<p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-					Choose a plan that grows with you. Start for free and upgrade anytime for more features and support
+					Choose a plan that grows with you. Upgrade anytime for more features and support
 				</p>
 
 				<!-- Billing Toggle -->
@@ -113,7 +111,7 @@ const testimonials = [
 		<!-- Pricing Cards -->
 		<section class="px-0 pb-24">
 			<div class="max-w-7xl mx-auto">
-				<div class="grid md:grid-cols-3 gap-8">
+				<div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
 					<div v-for="plan in styledPlans" :key="plan.key"
 						class="relative bg-gray-200/80 rounded-2xl border border-slate-200 p-1 transition-all duration-300 hover:shadow-lg"
 						:class="plan.popular ? 'border-purple-200 shadow-lg ring-1 ring-purple-100' : 'hover:border-slate-300'">

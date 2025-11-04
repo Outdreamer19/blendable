@@ -8,7 +8,7 @@
             Simple, transparent pricing
           </h1>
           <p class="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
-            Start free, upgrade as you grow. All plans include core features.
+            Choose a plan that grows with you. Upgrade anytime for more features and support.
           </p>
 
           <!-- Plan Toggle (placeholder) -->
@@ -34,9 +34,9 @@
         </div>
 
         <!-- Pricing Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-5xl mx-auto">
           <div
-            v-for="plan in plans"
+            v-for="plan in transformedPlans"
             :key="plan.name"
             class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] backdrop-blur p-8 relative shadow-sm dark:shadow-none"
             :class="plan.popular ? 'ring-2 ring-indigo-500/50' : ''"
@@ -121,6 +121,12 @@ import { usePage } from '@inertiajs/vue3'
 import MarketingLayout from '@/Layouts/MarketingLayout.vue'
 import MarketingButton from '@/Components/ui/MarketingButton.vue'
 
+const props = defineProps({
+  plans: Array,
+  currentPlan: String,
+  isAuthenticated: Boolean
+})
+
 const page = usePage()
 
 const isYearly = ref(false)
@@ -138,32 +144,17 @@ const toggleFaq = (index: number): void => {
   }
 }
 
-const plans = [
-  {
-    name: 'Free',
-    price: '£0',
+// Transform plans to match component structure
+const transformedPlans = computed(() => {
+  return props.plans?.map((plan: any) => ({
+    name: plan.name,
+    price: `£${plan.price}`,
     period: '/mo',
-    description: 'Perfect for getting started',
-    popular: false,
-    features: ['25k tokens/mo', '50 chats', 'Light models', 'Basic support'],
-  },
-  {
-    name: 'Pro',
-    price: '£19',
-    period: '/mo',
-    description: 'For power users and small teams',
-    popular: true,
-    features: ['500k tokens/mo', 'Full model roster', 'File uploads', 'Priority support'],
-  },
-  {
-    name: 'Business',
-    price: '£79',
-    period: '/mo',
-    description: 'For growing teams',
-    popular: false,
-    features: ['5 seats', '2M tokens pooled', 'Advanced analytics', 'Role management'],
-  },
-]
+    description: plan.key === 'pro' ? 'For power users and small teams' : 'For growing teams',
+    popular: plan.key === 'pro',
+    features: plan.features || [],
+  })) || []
+})
 
 const faqs = [
   {

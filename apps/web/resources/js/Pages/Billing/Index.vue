@@ -68,7 +68,7 @@
                 <span class="text-gray-400 text-2xl">💳</span>
               </div>
               <h4 class="text-lg font-medium text-gray-900 mb-2">No active subscription</h4>
-              <p class="text-gray-500 mb-4">You're currently on the free plan.</p>
+              <p class="text-gray-500 mb-4">Please subscribe to a plan to access all features.</p>
               <a
                 :href="route('billing.checkout')"
                 class="bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition duration-150 ease-in-out"

@@ -139,8 +139,9 @@ class StripeWebhookController extends Controller
             return;
         }
 
+        // Block access when subscription is deleted
         $user->update([
-            'plan' => 'free',
+            'plan' => null,
         ]);
 
         Log::info('Stripe webhook: Subscription deleted', [

@@ -2,13 +2,6 @@
 
 return [
     'plans' => [
-        'free' => [
-            'price_gbp' => 0,
-            'monthly_tokens' => 25000,
-            'monthly_chats' => 50,
-            'models' => ['gpt-4o-mini', 'claude-3-haiku', 'gemini-flash'],
-            'features' => ['basic_chat'],
-        ],
         'pro' => [
             'price_gbp' => 19,
             'monthly_tokens' => 500000,

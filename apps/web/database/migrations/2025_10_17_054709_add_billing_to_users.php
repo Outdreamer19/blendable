@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('plan')->default('free');
+            $table->string('plan')->nullable();
             $table->bigInteger('token_usage_month')->default(0);
             $table->integer('chat_count_month')->default(0);
             $table->date('billing_period_start')->default(now()->startOfMonth());
