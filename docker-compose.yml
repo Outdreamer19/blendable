@@ -16,34 +16,36 @@ services:
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
-      - DB_CONNECTION=pgsql
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_DATABASE=omni_ai
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=blendable
       - DB_USERNAME=omni_ai
       - DB_PASSWORD=password
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     depends_on:
-      - postgres
+      - mysql
       - redis
     networks:
       - omni-ai-network
 
-  postgres:
-    image: postgres:15
-    container_name: omni-ai-postgres
+  mysql:
+    image: mysql:8.0
+    container_name: omni-ai-mysql
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=omni_ai
-      - POSTGRES_USER=omni_ai
-      - POSTGRES_PASSWORD=password
+      - MYSQL_DATABASE=blendable
+      - MYSQL_USER=omni_ai
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=rootpassword
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     ports:
-      - "5432:5432"
+      - "3306:3306"
     networks:
       - omni-ai-network
+    command: --default-authentication-plugin=mysql_native_password
 
   redis:
     image: redis:7-alpine
@@ -84,23 +86,23 @@ services:
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
-      - DB_CONNECTION=pgsql
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_DATABASE=omni_ai
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=blendable
       - DB_USERNAME=omni_ai
       - DB_PASSWORD=password
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     command: php artisan horizon
     depends_on:
-      - postgres
+      - mysql
       - redis
     networks:
       - omni-ai-network
 
 volumes:
-  postgres_data:
+  mysql_data:
   redis_data:
 
 networks:
