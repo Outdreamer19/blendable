@@ -145,8 +145,8 @@
 import { ref, computed } from 'vue'
 import { router } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import ModelSwitcher from '@/components/ModelSwitcher.vue'
-import PersonaPicker from '@/components/PersonaPicker.vue'
+import ModelSwitcher from '@/Components/ModelSwitcher.vue'
+import PersonaPicker from '@/Components/PersonaPicker.vue'
 import {
   Plus,
   Grid3X3,

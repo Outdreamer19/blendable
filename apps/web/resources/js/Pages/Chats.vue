@@ -103,12 +103,12 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { router } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
-import ChatList from '@/components/chat/ChatList.vue'
-import Message from '@/components/chat/Message.vue'
-import Composer from '@/components/chat/Composer.vue'
-import HeaderBar from '@/components/chat/HeaderBar.vue'
-import EmptyState from '@/components/chat/EmptyState.vue'
-import Skeletons from '@/components/chat/Skeletons.vue'
+import ChatList from '@/Components/chat/ChatList.vue'
+import Message from '@/Components/chat/Message.vue'
+import Composer from '@/Components/chat/Composer.vue'
+import HeaderBar from '@/Components/chat/HeaderBar.vue'
+import EmptyState from '@/Components/chat/EmptyState.vue'
+import Skeletons from '@/Components/chat/Skeletons.vue'
 import { X, Menu, Bot } from 'lucide-vue-next'
 
 interface ChatSummary {
