@@ -37,28 +37,46 @@
 
 .main {
   margin: 0 auto;
-  width: 320px;
-  height: 320px;
+  width: 900px;
+  height: 300px;
   position: relative;
+  overflow: hidden;
+  margin-top: auto;
+  padding-top: 40px;
 }
 
 @media (min-width: 768px) {
   .main {
-    width: 480px;
-    height: 480px;
+    width: 900px;
+    height: 350px;
+    padding-top: 50px;
   }
 }
 
 .big-circle {
-  height: 100%;
-  width: 100%;
-  position: relative;
+  height: 600px;
+  width: 600px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: -300px;
   border: 3px solid rgba(99, 102, 241, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: rotate 20s linear infinite;
+  transform-origin: 300px 300px;
+}
+
+@media (min-width: 768px) {
+  .big-circle {
+    height: 700px;
+    width: 700px;
+    margin-left: -350px;
+    top: 50px;
+    transform-origin: 350px 350px;
+  }
 }
 
 .dark .big-circle {
@@ -75,6 +93,8 @@
   justify-content: center;
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  top: 50%;
+  left: 50%;
 }
 
 .dark .icon-block {
@@ -87,40 +107,64 @@
   animation: rotate-reverse 20s linear infinite;
 }
 
-.icon-block:first-child {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* Position 4 icons evenly around the big circle (360/4 = 90° per icon) */
+/* Mobile: 600px circle, radius = 300px */
+.big-circle .icon-block:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-300px) rotate(0deg);
 }
 
-.icon-block:nth-child(2) {
-  top: 50%;
-  right: 0;
-  transform: translate(50%, -50%);
+.big-circle .icon-block:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(90deg) translateY(-300px) rotate(-90deg);
 }
 
-.icon-block:nth-child(3) {
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
+.big-circle .icon-block:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(180deg) translateY(-300px) rotate(-180deg);
 }
 
-.icon-block:nth-child(4) {
-  top: 50%;
-  left: 0;
-  transform: translate(-50%, -50%);
+.big-circle .icon-block:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(270deg) translateY(-300px) rotate(-270deg);
+}
+
+/* Desktop: 700px circle, radius = 350px */
+@media (min-width: 768px) {
+  .big-circle .icon-block:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-350px) rotate(0deg);
+  }
+
+  .big-circle .icon-block:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(90deg) translateY(-350px) rotate(-90deg);
+  }
+
+  .big-circle .icon-block:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-350px) rotate(-180deg);
+  }
+
+  .big-circle .icon-block:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(270deg) translateY(-350px) rotate(-270deg);
+  }
 }
 
 .circle {
   animation: circle-rotate 20s linear infinite;
   position: absolute;
-  top: 50%;
+  top: 40px;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(45deg);
-  width: 75%;
-  height: 75%;
+  margin-left: -225px;
+  width: 450px;
+  height: 450px;
   border: 3px solid rgba(99, 102, 241, 0.3);
   border-radius: 50%;
+  transform-origin: 225px 225px;
+}
+
+@media (min-width: 768px) {
+  .circle {
+    width: 525px;
+    height: 525px;
+    margin-left: -262.5px;
+    top: 50px;
+    transform-origin: 262.5px 262.5px;
+  }
 }
 
 .dark .circle {
@@ -131,12 +175,55 @@
   animation: img-rotate 20s linear infinite;
 }
 
+/* Position 4 icons evenly around the inner circle (360/4 = 90° per icon) */
+/* Mobile: 450px circle, radius = 225px */
+.circle .icon-block:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-225px) rotate(0deg);
+}
+
+.circle .icon-block:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(90deg) translateY(-225px) rotate(-90deg);
+}
+
+.circle .icon-block:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(180deg) translateY(-225px) rotate(-180deg);
+}
+
+.circle .icon-block:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(270deg) translateY(-225px) rotate(-270deg);
+}
+
+/* Desktop: 525px circle, radius = 262.5px */
+@media (min-width: 768px) {
+  .circle .icon-block:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-262.5px) rotate(0deg);
+  }
+
+  .circle .icon-block:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(90deg) translateY(-262.5px) rotate(-90deg);
+  }
+
+  .circle .icon-block:nth-child(3) {
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-262.5px) rotate(-180deg);
+  }
+
+  .circle .icon-block:nth-child(4) {
+    transform: translate(-50%, -50%) rotate(270deg) translateY(-262.5px) rotate(-270deg);
+  }
+}
+
 .center-logo {
   position: absolute;
-  top: 50%;
+  top: 100px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .center-logo {
+    top: 150px;
+  }
 }
 
 @keyframes rotate {
@@ -159,10 +246,10 @@
 
 @keyframes circle-rotate {
   from {
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: rotate(45deg);
   }
   to {
-    transform: translate(-50%, -50%) rotate(405deg);
+    transform: rotate(405deg);
   }
 }
 

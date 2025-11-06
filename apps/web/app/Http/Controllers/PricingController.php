@@ -14,7 +14,7 @@ class PricingController extends Controller
             return [
                 'key' => $plan->value,
                 'name' => $plan->label(),
-                'price' => $plan->priceGbp(),
+                'price' => $plan->priceUsd(),
                 'tokens' => $plan->monthlyTokens(),
                 'chats' => $plan->monthlyChats(),
                 'models' => $plan->allowedModels(),

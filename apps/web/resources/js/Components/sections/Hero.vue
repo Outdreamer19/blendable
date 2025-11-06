@@ -1,5 +1,5 @@
 <template>
-	<section class="relative py-0 md:py-14 overflow-hidden bg-white dark:bg-slate-900">
+	<section class="relative py-0 md:pt-14 pb-0 overflow-hidden bg-white dark:bg-slate-900">
 		<!-- Background Pattern Overlay - Very Visible -->
 		<div class="absolute inset-0 -z-20 pointer-events-none">
 			<!-- Dot pattern - much more visible -->
@@ -160,7 +160,7 @@
 				</div>
 
 				<!-- Animated Circle - Below H1 -->
-				<div class=" flex items-center justify-center">
+				<div class="lex items-center justify-center">
 					<div class="main">
 						<div class="big-circle">
 							<div class="icon-block">
@@ -187,8 +187,17 @@
 									<img src="/img/logo/Deepseek-logo-icon.svg.png" alt="DeepSeek" class="w-full h-full object-contain" />
 								</div>
 							</div>
+							
 						</div>
 						<div class="circle">
+							
+							
+							<div class="icon-block">
+								<div
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/leonardo_ai_icon.png" alt="Leonardo AI" class="w-full h-full object-contain" />
+								</div>
+							</div>
 							<div class="icon-block">
 								<div
 									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
@@ -198,21 +207,16 @@
 							<div class="icon-block">
 								<div
 									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
-									<img src="/img/logo/Claude_AI_symbol.svg.png" alt="Claude AI" class="w-full h-full object-contain" />
+									<img src="/img/logo/Mistral_AI_icon.png" alt="Mistral AI" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
 									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
-									<img src="/img/logo/gemini-color.png" alt="Google Gemini" class="w-full h-full object-contain" />
+									<img src="/img/logo/perplexity-ai-icon.png" alt="Perplexity AI" class="w-full h-full object-contain" />
 								</div>
 							</div>
-							<div class="icon-block">
-								<div
-									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
-									<img src="/img/logo/Deepseek-logo-icon.svg.png" alt="DeepSeek" class="w-full h-full object-contain" />
-								</div>
-							</div>
+							
 						</div>
 						<div class="center-logo">
 							<div

@@ -41,6 +41,18 @@ const logos = [
   {
     name: 'DeepSeek',
     path: '/img/logo/DeepSeek_logo.svg.png'
+  },
+  {
+    name: 'Leonardo AI',
+    path: '/img/logo/leonardo_ai-logo.png'
+  },
+  {
+    name: 'Mistral AI',
+    path: '/img/logo/Mistral-AI-Logo.png'
+  },
+  {
+    name: 'Perplexity AI',
+    path: '/img/logo/Perplexity_AI_logo.svg.png'
   }
 ]
 

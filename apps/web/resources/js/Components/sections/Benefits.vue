@@ -62,35 +62,18 @@
           <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-b from-white via-white/80 to-transparent opacity-80 dark:opacity-15 rounded-t-2xl"></div>
           <!-- Bottom shadow border -->
           <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-slate-600/50"></div>
-          <!-- Cost Savings Graphic -->
+          <!-- Cost Optimization Icon -->
           <div class="flex justify-center mb-6">
-            <div class="w-full max-w-[200px]">
-              <div class="relative bg-gray-100 dark:bg-slate-700 rounded-lg p-4 h-32 shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]">
-                <!-- Vertical "SAVINGS" Label -->
-                <div class="absolute left-1 top-2 bottom-2 w-px bg-gray-300 dark:bg-slate-600"></div>
-                <span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-700 dark:text-gray-300 -rotate-90 origin-center whitespace-nowrap">SAVINGS</span>
-                
-                <!-- Bars showing cost reduction -->
-                <div class="flex items-end justify-center gap-2 h-full pl-8">
-                  <div class="flex flex-col items-center gap-1 flex-1 relative">
-                    <div class="px-2 py-0.5 bg-white dark:bg-slate-600 rounded text-xs font-medium text-gray-700 dark:text-gray-300 absolute -top-6 whitespace-nowrap shadow-sm">
-                      Before
-                    </div>
-                    <div class="w-full bg-white dark:bg-slate-600 rounded-t shadow-sm" style="height: 90%"></div>
-                  </div>
-                  <div class="flex flex-col items-center gap-1 flex-1 relative">
-                    <div class="px-2 py-0.5 bg-white dark:bg-slate-600 rounded text-xs font-medium text-gray-700 dark:text-gray-300 absolute -top-6 whitespace-nowrap shadow-sm">
-                      40% Less
-                    </div>
-                    <div class="w-full bg-white dark:bg-slate-600 rounded-t shadow-sm" style="height: 50%"></div>
-                  </div>
-                  <div class="flex flex-col items-center gap-1 flex-1 relative">
-                    <div class="px-2 py-0.5 bg-white dark:bg-slate-600 rounded text-xs font-medium text-gray-700 dark:text-gray-300 absolute -top-6 whitespace-nowrap shadow-sm">
-                      After
-                    </div>
-                    <div class="w-full bg-white dark:bg-slate-600 rounded-t shadow-sm" style="height: 30%"></div>
-                  </div>
-                </div>
+            <div class="relative w-32 h-32 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-full flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.1)]">
+              <!-- Dollar sign with trending down arrow -->
+              <div class="relative">
+                <svg class="w-12 h-12 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <!-- Downward arrow overlay -->
+                <svg class="absolute -bottom-1 -right-1 w-6 h-6 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                </svg>
               </div>
             </div>
           </div>
@@ -120,12 +103,6 @@
                 <circle cx="12" cy="16" r="2" fill="gray"/>
                 <circle cx="21" cy="7" r="2" fill="gray"/>
               </svg>
-              <!-- Center Icon -->
-              <div class="absolute inset-0 flex items-center justify-center">
-                <svg class="w-8 h-8 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
             </div>
           </div>
           

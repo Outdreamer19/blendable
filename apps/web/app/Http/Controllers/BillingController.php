@@ -33,7 +33,7 @@ class BillingController extends Controller
                 return [
                     'key' => $plan->value,
                     'name' => $plan->label(),
-                    'price' => $plan->priceGbp(),
+                    'price' => $plan->priceUsd(),
                     'tokens' => $plan->monthlyTokens(),
                     'chats' => $plan->monthlyChats(),
                     'models' => $plan->allowedModels(),
@@ -106,7 +106,7 @@ class BillingController extends Controller
             return [
                 'key' => $plan->value,
                 'name' => $plan->label(),
-                'price' => $plan->priceGbp(),
+                'price' => $plan->priceUsd(),
                 'tokens' => $plan->monthlyTokens(),
                 'chats' => $plan->monthlyChats(),
                 'models' => $plan->allowedModels(),
@@ -355,7 +355,7 @@ class BillingController extends Controller
 
         try {
             $plan = \App\Enums\Plan::from($planKey);
-            return (float) $plan->priceGbp();
+            return (float) $plan->priceUsd();
         } catch (\ValueError $e) {
             return null;
         }

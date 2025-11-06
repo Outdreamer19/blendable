@@ -23,11 +23,11 @@ test.describe('Pricing Page - No Free Plan', () => {
     await expect(businessPlan).toBeVisible()
 
     // Verify pricing amounts
-    await expect(page.locator('text=£19')).toBeVisible()
-    await expect(page.locator('text=£79')).toBeVisible()
+    await expect(page.locator('text=$19.99')).toBeVisible()
+    await expect(page.locator('text=$79')).toBeVisible()
 
-    // Verify no £0 price
-    const freePrice = page.locator('text=£0')
+    // Verify no $0 price
+    const freePrice = page.locator('text=$0')
     await expect(freePrice).not.toBeVisible()
   })
 

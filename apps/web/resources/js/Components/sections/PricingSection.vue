@@ -195,6 +195,6 @@ const plans = {
 
 const getPrice = (plan: 'pro' | 'business'): string => {
 	const price = isYearly.value ? plans[plan].yearly : plans[plan].monthly
-	return `£${price.toLocaleString()}`
+	return `$${price.toLocaleString()}`
 }
 </script>
