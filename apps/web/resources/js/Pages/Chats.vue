@@ -31,7 +31,7 @@
 						class="p-2 text-slate-600 hover:text-slate-700 rounded-lg hover:bg-slate-100">
 						<Menu class="h-5 w-5" />
 					</button>
-					<h1 class="text-lg font-semibold text-slate-900">OmniAI</h1>
+					<h1 class="text-lg font-semibold text-slate-900">Blendable</h1>
 					<div class="w-9"></div> <!-- Spacer for centering -->
 				</div>
 

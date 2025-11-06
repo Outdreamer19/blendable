@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         // Create a demo user
         User::firstOrCreate(
-            ['email' => 'demo@omni-ai.com'],
+            ['email' => 'demo@blendable.com'],
             [
                 'name' => 'Demo User',
                 'password' => Hash::make('password'),

@@ -8,7 +8,7 @@
 					<div class="flex items-center">
 						<Link :href="route('dashboard')" class="flex items-center">
 							<div class="flex-shrink-0">
-								<h1 class="text-xl font-bold text-gray-900">OmniAI</h1>
+								<h1 class="text-xl font-bold text-gray-900">Blendable</h1>
 							</div>
 						</Link>
 					</div>

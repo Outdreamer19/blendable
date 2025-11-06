@@ -21,5 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+        
+        // Register UsageLedger observer
+        \App\Models\UsageLedger::observe(\App\Observers\UsageLedgerObserver::class);
     }
 }

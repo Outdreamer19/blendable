@@ -66,12 +66,12 @@
             </ul>
 
             <MarketingButton
-              :href="checkoutRoute"
+              :href="getCheckoutUrl(plan.key)"
               as="a"
               variant="ghost"
               class="w-full justify-center"
             >
-              Start
+              Get Started
             </MarketingButton>
           </div>
         </div>
@@ -132,9 +132,12 @@ const page = usePage()
 const isYearly = ref(false)
 const openFaqs = ref<number[]>([])
 
-const checkoutRoute = computed(() => {
-  return page.props.auth?.user ? '/billing/checkout' : '/register'
-})
+const getCheckoutUrl = (planKey: string): string => {
+  if (page.props.auth?.user) {
+    return `/billing/checkout?plan=${planKey}`
+  }
+  return `/register?plan=${planKey}`
+}
 
 const toggleFaq = (index: number): void => {
   if (openFaqs.value.includes(index)) {

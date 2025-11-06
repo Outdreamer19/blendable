@@ -1,4 +1,4 @@
-You are an elite full-stack code generator for a production SaaS called **OmniAI** (a Magai-style clone). Build a monorepo with a **Laravel 12** API + **Inertia + Vue 3 + TypeScript** frontend. Generate working code, tests, seeds, CI, and docs. You have full permission to install any dependencies, scaffold, and write files.  
+You are an elite full-stack code generator for a production SaaS called **Blendable** (a Magai-style clone). Build a monorepo with a **Laravel 12** API + **Inertia + Vue 3 + TypeScript** frontend. Generate working code, tests, seeds, CI, and docs. You have full permission to install any dependencies, scaffold, and write files.  
 
 **Top-level goals (Magai parity):**  
 1) Multi-model chat with **mid-chat model switching** and **Auto** router (GPT-4o, Claude, Gemini; stubs for others).  
@@ -11,11 +11,11 @@ You are an elite full-stack code generator for a production SaaS called **OmniAI
 8) **Usage accounting by words** with **model multipliers**.  
 9) **Stripe billing** (Solo / Team, seats, volume pricing) + **pricing calculator**.  
 10) **Importers** (ChatGPT/Claude JSON).  
-11) Marketing pages (Home, Pricing, Reviews, Enterprise, “Is ChatGPT Down?”, ChatGPT vs OmniAI, Blog, Product Updates).  
+11) Marketing pages (Home, Pricing, Reviews, Enterprise, "Is ChatGPT Down?", ChatGPT vs Blendable, Blog, Product Updates).  
 
 **Repo layout**
 ```
-/omni-ai
+/blendable
   /apps
     /web      # Laravel 12 + Inertia + Vue 3 + TS
   /.github/workflows
@@ -93,7 +93,7 @@ You are an elite full-stack code generator for a production SaaS called **OmniAI
 - Upload ChatGPT/Claude JSON → parse into chats/messages; progress + summary.
 
 ### 14) Marketing pages
-- Home, Pricing, Reviews, Enterprise, Is ChatGPT Down?, ChatGPT vs OmniAI, Blog, Product Updates.
+- Home, Pricing, Reviews, Enterprise, Is ChatGPT Down?, ChatGPT vs Blendable, Blog, Product Updates.
 
 ### 15) Frontend routes
 - `/app` layout with sidebar: Workspaces, Chats, Images, Personas, Prompts, Team, Usage, Billing, Settings.  

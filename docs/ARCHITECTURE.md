@@ -1,6 +1,6 @@
 # Architecture Overview
 
-OmniAI is a multi‑tenant SaaS (teams → workspaces) with a Laravel 12 backend and Inertia/Vue 3 frontend.
+Blendable is a multi‑tenant SaaS (teams → workspaces) with a Laravel 12 backend and Inertia/Vue 3 frontend.
 Key subsystems:
 - Chat engine with provider‑agnostic **ModelRouter**
 - Tools layer (WebSearch, Files, ImageGen, PromptEnhancer)

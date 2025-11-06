@@ -4,7 +4,7 @@ test.describe('Chat Visual Layout - Whitespace Test', () => {
   test.beforeEach(async ({ page }) => {
     // Login
     await page.goto('/login')
-    await page.fill('#email', 'demo@omni-ai.com')
+    await page.fill('#email', 'demo@blendable.com')
     await page.fill('#password', 'password')
     await page.click('button[type="submit"]')
     await page.waitForURL(/.*(dashboard|chats|workspaces)/)

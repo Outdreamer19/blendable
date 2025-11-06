@@ -15,7 +15,7 @@
             <div class="mb-8">
               <h3 class="text-lg font-medium text-gray-900 mb-2">Import from ChatGPT or Claude</h3>
               <p class="text-gray-600">
-                Upload JSON export files from ChatGPT or Claude to import your conversations into OmniAI.
+                Upload JSON export files from ChatGPT or Claude to import your conversations into Blendable.
               </p>
             </div>
 

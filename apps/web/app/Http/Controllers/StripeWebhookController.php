@@ -81,6 +81,26 @@ class StripeWebhookController extends Controller
             return;
         }
 
+        // Sync subscription with Cashier - this will create/update the subscription record
+        $user->syncStripeCustomerDetails();
+        
+        // Get subscription name from metadata (Cashier uses 'default' by default)
+        $subscriptionName = $subscription->metadata->subscription_name ?? 'default';
+        
+        // Ensure subscription is synced in database
+        $user->subscriptions()->updateOrCreate(
+            ['stripe_id' => $subscription->id],
+            [
+                'user_id' => $user->id,
+                'type' => $subscriptionName,
+                'stripe_status' => $subscription->status,
+                'stripe_price' => $subscription->items->data[0]->price->id,
+                'quantity' => $subscription->items->data[0]->quantity ?? 1,
+                'trial_ends_at' => $subscription->trial_end ? now()->setTimestamp($subscription->trial_end) : null,
+                'ends_at' => $subscription->cancel_at ? now()->setTimestamp($subscription->cancel_at) : null,
+            ]
+        );
+
         $plan = $this->getPlanFromPriceId($subscription->items->data[0]->price->id);
 
         $user->update([
@@ -94,6 +114,7 @@ class StripeWebhookController extends Controller
             'user_id' => $user->id,
             'subscription_id' => $subscription->id,
             'plan' => $plan,
+            'status' => $subscription->status,
         ]);
     }
 
@@ -110,6 +131,25 @@ class StripeWebhookController extends Controller
 
             return;
         }
+
+        // Sync subscription with Cashier
+        $user->syncStripeCustomerDetails();
+        
+        // Update subscription record
+        $subscriptionName = $subscription->metadata->subscription_name ?? 'default';
+        
+        $user->subscriptions()->updateOrCreate(
+            ['stripe_id' => $subscription->id],
+            [
+                'user_id' => $user->id,
+                'type' => $subscriptionName,
+                'stripe_status' => $subscription->status,
+                'stripe_price' => $subscription->items->data[0]->price->id,
+                'quantity' => $subscription->items->data[0]->quantity ?? 1,
+                'trial_ends_at' => $subscription->trial_end ? now()->setTimestamp($subscription->trial_end) : null,
+                'ends_at' => $subscription->cancel_at ? now()->setTimestamp($subscription->cancel_at) : null,
+            ]
+        );
 
         $plan = $this->getPlanFromPriceId($subscription->items->data[0]->price->id);
 
@@ -138,6 +178,14 @@ class StripeWebhookController extends Controller
 
             return;
         }
+
+        // Cancel/delete subscription record
+        $user->subscriptions()
+            ->where('stripe_id', $subscription->id)
+            ->update([
+                'stripe_status' => 'canceled',
+                'ends_at' => now(),
+            ]);
 
         // Block access when subscription is deleted
         $user->update([

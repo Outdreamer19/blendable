@@ -8,7 +8,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 // Import dark mode composable to ensure it initializes
 import './composables/useDarkMode';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Blendable';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

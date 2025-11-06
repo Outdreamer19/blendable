@@ -11,7 +11,7 @@
         Join thousands of teams already using Blendable to optimize their AI workflows.
       </p>
       <MarketingButton :href="registerRoute" as="a" variant="ghost" class="text-lg px-8 py-4">
-        Start Free
+        Get Started
       </MarketingButton>
     </div>
   </section>

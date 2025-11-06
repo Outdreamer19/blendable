@@ -34,7 +34,7 @@ const props = defineProps<{ chatId: number }>()
 
 const model = ref('auto')
 const messages = ref<Array<{role:string, content:string}>>([
-  { role:'system', content:'Welcome to OmniAI (stub).' }
+  { role:'system', content:'Welcome to Blendable (stub).' }
 ])
 const input = ref('')
 

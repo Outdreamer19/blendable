@@ -4,7 +4,7 @@ test.describe('Final Chat AI Integration Test', () => {
   test.beforeEach(async ({ page }) => {
     // Login before each test
     await page.goto('/login');
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     await page.click('button:has-text("Log in")');
     

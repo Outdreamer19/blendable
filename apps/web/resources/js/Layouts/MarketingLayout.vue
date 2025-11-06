@@ -71,7 +71,7 @@
               as="a"
               variant="ghost"
             >
-              Start Free
+              Get Started
             </MarketingButton>
           </div>
 
@@ -130,7 +130,7 @@
             variant="primary"
             class="w-full"
           >
-            Start Free
+            Get Started
           </MarketingButton>
         </div>
       </nav>
@@ -207,10 +207,10 @@
               </li>
               <li>
                 <a
-                  href="mailto:hello@omni-ai.com"
+                  href="mailto:hello@blendable.com"
                   class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
-                  hello@omni-ai.com
+                  hello@blendable.com
                 </a>
               </li>
             </ul>
@@ -219,7 +219,7 @@
 
         <div class="pt-8 border-t border-slate-200 dark:border-white/10">
           <p class="text-sm text-slate-600 dark:text-slate-400 text-center">
-            &copy; {{ new Date().getFullYear() }} OmniAI. All rights reserved.
+            &copy; {{ new Date().getFullYear() }} Blendable. All rights reserved.
           </p>
         </div>
       </div>

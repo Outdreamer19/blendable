@@ -162,7 +162,7 @@ onUnmounted(() => {
                      :class="isScrolled ? 'w-4 h-4' : 'w-5 h-5'" />
             </div>
             <span class="text-xl font-bold text-slate-900 dark:text-white transition-all duration-500 ease-out overflow-hidden"
-                  :class="isScrolled ? 'w-0 opacity-0' : 'w-auto opacity-100'">Omni-AI</span>
+                  :class="isScrolled ? 'w-0 opacity-0' : 'w-auto opacity-100'">Blendable</span>
           </Link>
         </div>
 

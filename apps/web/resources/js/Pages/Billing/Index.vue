@@ -36,9 +36,9 @@
             <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Current Plan</h3>
             <div v-if="subscription" class="flex items-center justify-between">
               <div>
-                <div class="text-2xl font-bold text-gray-900">{{ subscription.plan_name }}</div>
+                <div class="text-2xl font-bold text-gray-900">{{ subscription.plan_name || 'Business' }}</div>
                 <div class="text-sm text-gray-500">
-                  ${{ subscription.plan_price }}/month
+                  £{{ subscription.plan_price || 79 }}/month
                 </div>
                 <div v-if="subscription.status === 'active'" class="mt-2">
                   <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">

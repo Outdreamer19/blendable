@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/index.esm.js';
 import '../css/app.css';
 
-const appName = import.meta.env.VITE_APP_NAME || 'OmniAI';
+const appName = import.meta.env.VITE_APP_NAME || 'Blendable';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

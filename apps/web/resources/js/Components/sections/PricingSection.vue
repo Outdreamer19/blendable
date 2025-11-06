@@ -80,11 +80,12 @@
 							<span class="text-gray-500 dark:text-gray-400 ml-2 text-lg">/month</span>
 						</div>
 						<p class="text-gray-600 dark:text-gray-400 text-sm">
-							For power users and teams who need advanced AI routing
+							For power users and teams who need advanced AI routing kkk
 						</p>
 					</div>
 
-					<button
+					<a
+						:href="`/billing/checkout?plan=pro`"
 						class="relative w-full mb-6 px-6 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors border border-gray-800/50 dark:border-gray-600/50 shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_2px_5px_-1px_rgba(0,0,0,0.5),0_1px_4px_-1px_rgba(0,0,0,0.4)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_2px_5px_-1px_rgba(0,0,0,0.75),0_1px_4px_-1px_rgba(0,0,0,0.6)] hover:shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_3px_6px_-2px_rgba(0,0,0,0.55),0_2px_5px_-1px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_3px_6px_-2px_rgba(0,0,0,0.85),0_2px_5px_-1px_rgba(0,0,0,0.65)]">
 						<!-- Top highlight -->
 						<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-b from-white/20 to-transparent opacity-40 dark:opacity-10 rounded-t-lg"></div>
@@ -93,7 +94,7 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="M13 7l5 5m0 0l-5 5m5-5H6" />
 						</svg>
-					</button>
+					</a>
 
 					<ul class="space-y-3 border-t-2 border-dotted border-gray-300 dark:border-slate-700/50 pt-4">
 						<li v-for="feature in plans.pro.features" :key="feature"
@@ -127,7 +128,8 @@
 						</p>
 					</div>
 
-					<button
+					<a
+						:href="`/billing/checkout?plan=business`"
 						class="relative w-full mb-6 px-6 py-2 bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-white rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors border border-gray-200/50 dark:border-slate-600/50 shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.15)_inset,0_2px_5px_-1px_rgba(0,0,0,0.4),0_1px_4px_-1px_rgba(0,0,0,0.3)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.35)_inset,0_2px_5px_-1px_rgba(0,0,0,0.65),0_1px_4px_-1px_rgba(0,0,0,0.5)] hover:shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.15)_inset,0_3px_6px_-2px_rgba(0,0,0,0.45),0_2px_5px_-1px_rgba(0,0,0,0.35)] dark:hover:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.35)_inset,0_3px_6px_-2px_rgba(0,0,0,0.75),0_2px_5px_-1px_rgba(0,0,0,0.55)]">
 						<!-- Top highlight -->
 						<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-b from-white/80 to-transparent opacity-60 dark:opacity-10 rounded-t-lg"></div>
@@ -136,7 +138,7 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="M13 7l5 5m0 0l-5 5m5-5H6" />
 						</svg>
-					</button>
+					</a>
 
 					<ul class="space-y-3 border-t-2 border-dotted border-gray-300 dark:border-slate-700/50 pt-4">
 						<li v-for="feature in plans.business.features" :key="feature"

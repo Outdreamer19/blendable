@@ -50,7 +50,7 @@ test.describe('Simplified Onboarding Flow', () => {
   test('should have personal team and workspace created automatically', async ({ page }) => {
     // Login with existing user
     await page.goto('/login');
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     await page.click('button:has-text("Log in")');
     

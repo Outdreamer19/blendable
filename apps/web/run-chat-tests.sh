@@ -18,14 +18,14 @@ echo "✅ Laravel server is running"
 # Check if we have the demo user
 echo "🔍 Checking for demo user..."
 php artisan tinker --execute="
-\$user = App\Models\User::where('email', 'demo@omni-ai.com')->first();
+\$user = App\Models\User::where('email', 'demo@blendable.com')->first();
 if (\$user) {
     echo '✅ Demo user exists: ' . \$user->email;
 } else {
     echo '❌ Demo user not found. Creating demo user...';
     \$user = App\Models\User::create([
         'name' => 'Demo User',
-        'email' => 'demo@omni-ai.com',
+        'email' => 'demo@blendable.com',
         'password' => bcrypt('password'),
         'email_verified_at' => now(),
     ]);

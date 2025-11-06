@@ -1,4 +1,4 @@
-# Omni-AI - Multi-Model AI Chat Platform
+# Blendable - Multi-Model AI Chat Platform
 
 A comprehensive AI chat platform built with Laravel 12, Vue 3, and Inertia.js that supports multiple AI models, team collaboration, and advanced features.
 
@@ -70,7 +70,7 @@ A comprehensive AI chat platform built with Laravel 12, Vue 3, and Inertia.js th
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd omni-ai
+   cd blendable
    ```
 
 2. **Set up environment**
@@ -130,7 +130,7 @@ Key environment variables to configure:
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=omni_ai
+DB_DATABASE=blendable
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 
@@ -169,7 +169,7 @@ QUEUE_CONNECTION=redis
 ## 📁 Project Structure
 
 ```
-omni-ai/
+blendable/
 ├── apps/
 │   └── web/                 # Laravel application
 │       ├── app/
@@ -326,4 +326,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by the Omni-AI team
+Built with ❤️ by the Blendable team
