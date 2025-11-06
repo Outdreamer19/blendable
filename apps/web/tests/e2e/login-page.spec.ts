@@ -6,7 +6,7 @@ test.describe('Login Page with Animated Gradient Background', () => {
   });
 
   test('should display login page with correct title', async ({ page }) => {
-    await expect(page).toHaveTitle(/Sign in — Omni-AI/);
+    await expect(page).toHaveTitle(/Sign in — Blendable/);
     await expect(page.locator('h1')).toContainText('Welcome back');
   });
 

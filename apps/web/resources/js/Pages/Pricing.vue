@@ -74,7 +74,7 @@ const testimonials = [
 
 <template>
 
-	<Head title="Pricing — Omni-AI" />
+	<Head title="Pricing — Blendable" />
 
 	<div class="min-h-screen bg-white">
 		<!-- Sophisticated Navbar -->
@@ -289,7 +289,7 @@ const testimonials = [
 					</div>
 				</div>
 				<div class="border-t border-slate-800 mt-12 pt-8 text-center">
-					<p class="text-slate-400">© 2024 Omni-AI. All rights reserved.</p>
+					<p class="text-slate-400">© 2024 Blendable. All rights reserved.</p>
 				</div>
 			</div>
 		</footer>

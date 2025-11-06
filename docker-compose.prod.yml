@@ -3,21 +3,21 @@ version: '3.8'
 services:
   app:
     build: .
-    container_name: omni-ai-app
+    container_name: blendable-app
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
       - ./apps/web/storage:/var/www/html/storage
       - ./apps/web/bootstrap/cache:/var/www/html/bootstrap/cache
     networks:
-      - omni-ai-network
+      - blendable-network
     depends_on:
       - db
       - redis
 
   nginx:
     image: nginx:stable-alpine
-    container_name: omni-ai-nginx
+    container_name: blendable-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -27,13 +27,13 @@ services:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./docker/nginx/ssl:/etc/nginx/ssl
     networks:
-      - omni-ai-network
+      - blendable-network
     depends_on:
       - app
 
   db:
     image: postgres:16-alpine
-    container_name: omni-ai-db
+    container_name: blendable-db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_DATABASE}
@@ -42,27 +42,27 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
-      - omni-ai-network
+      - blendable-network
 
   redis:
     image: redis:alpine
-    container_name: omni-ai-redis
+    container_name: blendable-redis
     restart: unless-stopped
     networks:
-      - omni-ai-network
+      - blendable-network
 
   mailpit:
     image: docker.io/mailhog/mailhog
-    container_name: omni-ai-mailpit
+    container_name: blendable-mailpit
     restart: unless-stopped
     ports:
       - "1025:1025"
       - "8025:8025"
     networks:
-      - omni-ai-network
+      - blendable-network
 
 networks:
-  omni-ai-network:
+  blendable-network:
     driver: bridge
 
 volumes:

@@ -25,8 +25,8 @@
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Email</h3>
-                  <a href="mailto:hello@omni-ai.com" class="text-indigo-600 dark:text-indigo-400 hover:underline">
-                    hello@omni-ai.com
+                  <a href="mailto:hello@blendable.com" class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                    hello@blendable.com
                   </a>
                 </div>
               </div>

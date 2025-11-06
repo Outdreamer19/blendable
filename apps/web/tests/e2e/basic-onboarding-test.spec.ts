@@ -4,7 +4,7 @@ test.describe('Basic Onboarding Test', () => {
   test('should allow existing user to access chats without workspace issues', async ({ page }) => {
     // Login with existing user
     await page.goto('/login');
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     await page.click('button:has-text("Log in")');
     
@@ -36,7 +36,7 @@ test.describe('Basic Onboarding Test', () => {
   test('should have Teams and Workspaces in navigation', async ({ page }) => {
     // Login with existing user
     await page.goto('/login');
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     await page.click('button:has-text("Log in")');
     

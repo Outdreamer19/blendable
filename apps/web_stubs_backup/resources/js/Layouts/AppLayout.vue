@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex">
     <aside class="w-64 border-r p-4 space-y-2">
-      <h1 class="font-bold">OmniAI</h1>
+      <h1 class="font-bold">Blendable</h1>
       <nav class="space-y-1">
         <a href="/app/chats/1">Chats</a>
         <a href="/app/personas">Personas</a>

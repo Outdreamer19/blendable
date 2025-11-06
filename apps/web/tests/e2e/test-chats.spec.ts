@@ -9,7 +9,7 @@ test.describe('Chat Functionality Tests', () => {
     await page.waitForSelector('#email')
     
     // Fill in credentials (adjust if needed)
-    await page.fill('#email', 'demo@omni-ai.com')
+    await page.fill('#email', 'demo@blendable.com')
     await page.fill('#password', 'password')
     
     // Submit login

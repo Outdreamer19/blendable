@@ -22,41 +22,84 @@ class BillingController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $currentWorkspace = $user->currentWorkspace();
-
+        
         // Get subscription status using our StripeService
         $subscriptionStatus = $this->stripeService->getSubscriptionStatus($user);
+        
+        // If user doesn't have an active subscription, show onboarding page
+        if (!$subscriptionStatus['has_subscription'] || !in_array($subscriptionStatus['status'], ['active', 'trialing'])) {
+            // Get plan data for the onboarding page
+            $plans = collect(Plan::cases())->map(function (Plan $plan) {
+                return [
+                    'key' => $plan->value,
+                    'name' => $plan->label(),
+                    'price' => $plan->priceGbp(),
+                    'tokens' => $plan->monthlyTokens(),
+                    'chats' => $plan->monthlyChats(),
+                    'models' => $plan->allowedModels(),
+                    'features' => $plan->features(),
+                    'seats' => $plan->seatsIncluded(),
+                ];
+            });
+
+            return Inertia::render('Onboarding/Subscribe', [
+                'plans' => $plans,
+            ]);
+        }
+
+        // User has active subscription - show full billing page with AppLayout
+        $currentWorkspace = $user->currentWorkspace();
         $paymentMethod = $this->stripeService->getPaymentMethod($user);
         $invoices = $this->stripeService->getInvoices($user, 5);
 
-        // Get current usage
-        $currentUsage = [
-            'words_used' => 0,
-            'words_limit' => 0, // No free tier
-            'api_calls' => 0,
-            'api_calls_limit' => 100,
-            'cost' => 0,
-            'cost_percentage' => 0,
-            'usage_percentage' => 0,
-        ];
+        // Get current usage from UsageLedger for current month
+        $billingPeriodStart = $user->billing_period_start ?? now()->startOfMonth();
+        $monthlyUsage = \App\Models\UsageLedger::where('user_id', $user->id)
+            ->where('usage_date', '>=', $billingPeriodStart)
+            ->selectRaw('
+                COALESCE(SUM(words_debited), 0) as words_used,
+                COUNT(*) as api_calls
+            ')
+            ->first();
 
-        // Get team usage if user has a team
-        $team = $user->teams()->first();
-        if ($team && $subscriptionStatus['has_subscription']) {
-            $plan = config("stripe.plans.{$subscriptionStatus['plan']}");
-            if ($plan) {
-                $currentUsage = [
-                    'words_used' => $team->words_used_this_month ?? 0,
-                    'words_limit' => $plan['words_limit'],
-                    'api_calls' => $team->api_calls_used_this_month ?? 0,
-                    'api_calls_limit' => $plan['api_calls_limit'],
-                    'cost' => $this->stripeService->calculateUsageCost('openai', 'gpt-4o', $team->words_used_this_month ?? 0),
-                    'cost_percentage' => 0, // Calculate based on plan limits
-                    'usage_percentage' => $plan['words_limit'] > 0 ?
-                        (($team->words_used_this_month ?? 0) / $plan['words_limit']) * 100 : 0,
-                ];
+        // Get plan limits from Plan enum
+        $planKey = $subscriptionStatus['plan'];
+        $planEnum = null;
+        $planConfig = null;
+        
+        if ($planKey) {
+            try {
+                $planEnum = \App\Enums\Plan::from($planKey);
+                $planConfig = config("billing.plans.{$planKey}");
+            } catch (\ValueError $e) {
+                // Plan not found
             }
         }
+
+        $wordsUsed = $monthlyUsage->words_used ?? $user->token_usage_month ?? 0;
+        $apiCalls = $monthlyUsage->api_calls ?? $user->chat_count_month ?? 0;
+        
+        // Calculate limits from plan
+        $wordsLimit = 0;
+        $apiCallsLimit = 100; // Default
+        
+        if ($planConfig) {
+            // Convert tokens to approximate words (rough estimate: 1 token ≈ 0.75 words)
+            $wordsLimit = (int) ($planConfig['monthly_tokens'] * 0.75);
+        }
+        
+        // Calculate cost
+        $cost = $this->stripeService->calculateUsageCost('openai', 'gpt-4o', $wordsUsed);
+
+        $currentUsage = [
+            'words_used' => $wordsUsed,
+            'words_limit' => $wordsLimit,
+            'api_calls' => $apiCalls,
+            'api_calls_limit' => $apiCallsLimit,
+            'cost' => $cost,
+            'cost_percentage' => 0,
+            'usage_percentage' => $wordsLimit > 0 ? ($wordsUsed / $wordsLimit) * 100 : 0,
+        ];
 
         // Get plan data for the billing page
         $plans = collect(Plan::cases())->map(function (Plan $plan) {
@@ -81,13 +124,13 @@ class BillingController extends Controller
             ],
             'workspaces' => $user->workspaces()->get(),
             'currentWorkspace' => $currentWorkspace,
-            'subscription' => $subscriptionStatus['has_subscription'] ? [
+            'subscription' => [
                 'id' => $team->stripe_id ?? null,
                 'plan_name' => $this->getPlanName($subscriptionStatus['plan']),
                 'plan_price' => $this->getPlanPrice($subscriptionStatus['plan']),
                 'status' => $subscriptionStatus['status'],
                 'current_period_end' => $subscriptionStatus['current_period_end'],
-            ] : null,
+            ],
             'paymentMethod' => $paymentMethod,
             'invoices' => $invoices,
             'currentUsage' => $currentUsage,
@@ -99,29 +142,35 @@ class BillingController extends Controller
     {
         $user = Auth::user();
 
+        $plan = $request->input('plan') ?? $request->query('plan');
+        
+        if (!$plan) {
+            return redirect()->route('pricing')
+                ->with('error', 'Please select a plan.');
+        }
+
         $request->validate([
             'plan' => 'required|in:pro,business',
-            'email' => 'required_if:user,null|email',
         ]);
 
-        $plan = $request->plan;
+        // If user is not authenticated, redirect to registration with plan parameter
+        if (!$user) {
+            return redirect()->route('register', ['plan' => $plan])
+                ->with('info', 'Please create an account to continue with checkout.');
+        }
+
         $priceId = $this->getPriceId($plan);
 
         try {
-            if ($user) {
-                // Authenticated user - use Cashier
-                $checkout = $user->newSubscription('default', $priceId)
-                    ->checkout([
-                        'success_url' => route('billing.success'),
-                        'cancel_url' => route('pricing'),
-                        'metadata' => [
-                            'plan' => $plan,
-                        ],
-                    ]);
-            } else {
-                // Anonymous user - create Stripe checkout session directly
-                $checkout = $this->createAnonymousCheckout($priceId, $plan, $request->email);
-            }
+            // Authenticated user - use Cashier
+            $checkout = $user->newSubscription('default', $priceId)
+                ->checkout([
+                    'success_url' => route('billing.success'),
+                    'cancel_url' => route('pricing'),
+                    'metadata' => [
+                        'plan' => $plan,
+                    ],
+                ]);
 
             return redirect($checkout->url);
         } catch (IncompletePayment $exception) {
@@ -136,10 +185,49 @@ class BillingController extends Controller
         return $user->redirectToBillingPortal(route('billing.index'));
     }
 
-    public function success()
+    public function success(Request $request)
     {
+        $user = Auth::user();
+        
+        // Refresh subscription data from Stripe/Cashier
+        // Cashier automatically syncs subscriptions, but we can force a refresh
+        if ($user->stripe_id) {
+            $user->syncStripeCustomerDetails();
+        }
+        
+        // Check subscription status using Cashier directly
+        $subscription = $user->subscription('default');
+        
+        if ($subscription && $subscription->active()) {
+            // Get plan from subscription metadata or price ID
+            $priceId = $subscription->stripe_price;
+            $plan = $this->getPlanFromPriceId($priceId);
+            
+            if ($plan) {
+                $user->update(['plan' => $plan]);
+            }
+            
+            // Redirect to dashboard or billing page
+            return redirect()->route('dashboard')
+                ->with('success', 'Subscription activated successfully! Welcome to Blendable!');
+        }
+        
+        // If subscription not active yet, redirect to billing (will show onboarding)
         return redirect()->route('billing.index')
-            ->with('success', 'Subscription activated successfully!');
+            ->with('info', 'Your subscription is being processed. Please wait a moment...');
+    }
+    
+    protected function getPlanFromPriceId(string $priceId): ?string
+    {
+        $prices = config('billing.stripe.prices');
+        
+        foreach ($prices as $planKey => $planPriceId) {
+            if ($planPriceId === $priceId) {
+                return $planKey;
+            }
+        }
+        
+        return null;
     }
 
     public function cancel()
@@ -248,9 +336,12 @@ class BillingController extends Controller
             return null;
         }
 
-        $plan = config("stripe.plans.{$planKey}");
-
-        return $plan ? $plan['name'] : null;
+        try {
+            $plan = \App\Enums\Plan::from($planKey);
+            return $plan->label();
+        } catch (\ValueError $e) {
+            return null;
+        }
     }
 
     /**
@@ -262,8 +353,11 @@ class BillingController extends Controller
             return null;
         }
 
-        $plan = config("stripe.plans.{$planKey}");
-
-        return $plan ? $plan['price'] : null;
+        try {
+            $plan = \App\Enums\Plan::from($planKey);
+            return (float) $plan->priceGbp();
+        } catch (\ValueError $e) {
+            return null;
+        }
     }
 }

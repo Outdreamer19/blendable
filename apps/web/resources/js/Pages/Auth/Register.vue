@@ -104,32 +104,54 @@
                       <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Password
                       </label>
-                      <input
-                    id="password"
-                    type="password"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                        class="relative w-full px-4 py-3 bg-white dark:bg-slate-700 border border-gray-200/50 dark:border-slate-600/50 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_1px_2px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_1px_2px_-1px_rgba(0,0,0,0.2)]"
-                />
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+                      <div class="relative">
+                        <input
+                          id="password"
+                          :type="showPassword ? 'text' : 'password'"
+                          v-model="form.password"
+                          required
+                          autocomplete="new-password"
+                          class="relative w-full px-4 py-3 pr-12 bg-white dark:bg-slate-700 border border-gray-200/50 dark:border-slate-600/50 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_1px_2px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_1px_2px_-1px_rgba(0,0,0,0.2)]"
+                        />
+                        <button
+                          type="button"
+                          @click="showPassword = !showPassword"
+                          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
+                          tabindex="-1"
+                        >
+                          <Eye v-if="!showPassword" class="w-5 h-5" />
+                          <EyeOff v-else class="w-5 h-5" />
+                        </button>
+                      </div>
+                      <InputError class="mt-2" :message="form.errors.password" />
+                    </div>
 
                     <!-- Confirm Password Field -->
                     <div>
                       <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Confirm Password
                       </label>
-                      <input
-                    id="password_confirmation"
-                    type="password"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                        class="relative w-full px-4 py-3 bg-white dark:bg-slate-700 border border-gray-200/50 dark:border-slate-600/50 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_1px_2px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_1px_2px_-1px_rgba(0,0,0,0.2)]"
-                      />
+                      <div class="relative">
+                        <input
+                          id="password_confirmation"
+                          :type="showPasswordConfirmation ? 'text' : 'password'"
+                          v-model="form.password_confirmation"
+                          required
+                          autocomplete="new-password"
+                          class="relative w-full px-4 py-3 pr-12 bg-white dark:bg-slate-700 border border-gray-200/50 dark:border-slate-600/50 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_1px_2px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_1px_2px_-1px_rgba(0,0,0,0.2)]"
+                        />
+                        <button
+                          type="button"
+                          @click="showPasswordConfirmation = !showPasswordConfirmation"
+                          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
+                          tabindex="-1"
+                        >
+                          <Eye v-if="!showPasswordConfirmation" class="w-5 h-5" />
+                          <EyeOff v-else class="w-5 h-5" />
+                        </button>
+                      </div>
                       <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
+                    </div>
 
                     <!-- Submit Button -->
                     <MarketingButton
@@ -236,8 +258,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
+import { Eye, EyeOff } from 'lucide-vue-next'
 import MarketingLayout from '@/Layouts/MarketingLayout.vue'
 import InputError from '@/Components/InputError.vue'
 import MarketingButton from '@/Components/ui/MarketingButton.vue'
@@ -245,12 +268,20 @@ import MarketingButton from '@/Components/ui/MarketingButton.vue'
 // TypeScript declaration for Ziggy route helper (available globally at runtime)
 declare const route: (name: string, params?: any) => string
 
+const props = defineProps<{
+  plan?: string | null
+}>()
+
 const form = useForm({
   name: '',
   email: '',
   password: '',
   password_confirmation: '',
+  plan: props.plan || null,
 })
+
+const showPassword = ref(false)
+const showPasswordConfirmation = ref(false)
 
 const submit = (): void => {
   form.post(route('register'), {

@@ -4,7 +4,7 @@ test.describe('Simple Chat Test', () => {
   test('should load chat page and verify basic functionality', async ({ page }) => {
     // Login first
     await page.goto('/login');
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     await page.click('button:has-text("Log in")');
     
@@ -45,7 +45,7 @@ test.describe('Simple Chat Test', () => {
     await expect(page).toHaveURL(/.*login/);
     
     // Fill login form
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     await page.click('button:has-text("Log in")');
     

@@ -75,9 +75,9 @@ Route::get('/product-updates', function () {
     return Inertia::render('ProductUpdates');
 })->name('product-updates');
 
-Route::get('/chatgpt-vs-omni', function () {
+Route::get('/chatgpt-vs-blendable', function () {
     return Inertia::render('ChatGPTVsOmni');
-})->name('chatgpt-vs-omni');
+})->name('chatgpt-vs-blendable');
 
 Route::get('/chatgpt-down', function () {
     return Inertia::render('ChatGPTDown');
@@ -178,7 +178,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Public billing routes (no authentication required)
 Route::get('/billing/checkout', [BillingController::class, 'checkout'])->name('billing.checkout');
-Route::post('/billing/checkout', [BillingController::class, 'checkout'])->name('billing.checkout');
+Route::post('/billing/checkout', [BillingController::class, 'checkout'])->name('billing.checkout.post');
 
 // API routes
 Route::prefix('api')->group(function () {

@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{
 // Testimonials data
 const testimonials = ref([
   {
-    quote: "Omni-AI has completely transformed how I approach my work. The AI assistance is incredibly intuitive and saves me hours every day.",
+    quote: "Blendable has completely transformed how I approach my work. The AI assistance is incredibly intuitive and saves me hours every day.",
     author: "Sarah Chen",
     role: "Product Manager at Stripe"
   },
@@ -21,7 +21,7 @@ const testimonials = ref([
     role: "Senior Software Engineer at Netflix"
   },
   {
-    quote: "I've tried many AI tools, but Omni-AI stands out. The context understanding and code generation are remarkably accurate.",
+    quote: "I've tried many AI tools, but Blendable stands out. The context understanding and code generation are remarkably accurate.",
     author: "Emily Watson",
     role: "Tech Lead at Airbnb"
   },
@@ -31,7 +31,7 @@ const testimonials = ref([
     role: "Full Stack Developer at Shopify"
   },
   {
-    quote: "Omni-AI has become an essential part of my workflow. The suggestions are always relevant and help me write better code.",
+    quote: "Blendable has become an essential part of my workflow. The suggestions are always relevant and help me write better code.",
     author: "Lisa Thompson",
     role: "Frontend Developer at Figma"
   },

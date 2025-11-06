@@ -6,7 +6,7 @@
         <div class="flex justify-between h-16">
           <div class="flex items-center">
             <Link :href="route('welcome')" class="flex-shrink-0">
-              <h1 class="text-2xl font-bold text-indigo-600">OmniAI</h1>
+              <h1 class="text-2xl font-bold text-indigo-600">Blendable</h1>
             </Link>
           </div>
           <div class="flex items-center space-x-4">
@@ -32,7 +32,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
-            OmniAI Blog
+            Blendable Blog
           </h1>
           <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
             Insights, tutorials, and updates on AI, productivity, and the future of work.
@@ -232,7 +232,7 @@
                 <span class="ml-3 text-sm text-gray-500">March 1, 2024</span>
               </div>
               <h3 class="text-xl font-semibold text-gray-900 mb-3">
-                OmniAI v2.0: What's New and What's Coming
+                Blendable v2.0: What's New and What's Coming
               </h3>
               <p class="text-gray-600 mb-4">
                 A comprehensive overview of our latest features, improvements, and roadmap for the future of multi-model AI platforms.
@@ -292,7 +292,7 @@
         </div>
         <div class="mt-8 md:mt-0 md:order-1">
           <p class="text-center text-base text-gray-400">
-            &copy; 2024 OmniAI. All rights reserved.
+            &copy; 2024 Blendable. All rights reserved.
           </p>
         </div>
       </div>

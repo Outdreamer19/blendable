@@ -221,37 +221,69 @@ class StripeService
      */
     public function getSubscriptionStatus(User $user): array
     {
-        $team = $user->teams()->first();
-
-        if (! $team || ! $team->stripe_id) {
+        // Check Cashier subscription first (primary method)
+        $subscription = $user->subscription('default');
+        
+        if ($subscription && $subscription->valid()) {
+            // Get plan from subscription price ID
+            $priceId = $subscription->stripe_price;
+            $plan = $this->getPlanFromPriceId($priceId);
+            
             return [
-                'has_subscription' => false,
-                'status' => 'inactive',
-                'plan' => null,
-                'trial_ends_at' => null,
-                'current_period_end' => null,
+                'has_subscription' => true,
+                'status' => $subscription->stripe_status,
+                'plan' => $plan ?? $user->plan,
+                'trial_ends_at' => $subscription->trial_ends_at?->toDateTimeString(),
+                'current_period_end' => $subscription->asStripeSubscription()->current_period_end 
+                    ? date('Y-m-d H:i:s', $subscription->asStripeSubscription()->current_period_end)
+                    : null,
             ];
         }
+        
+        // Fallback to team-based check (for backward compatibility)
+        $team = $user->teams()->first();
 
-        $subscription = $this->getSubscription($team->stripe_id);
+        if ($team && $team->stripe_id) {
+            $stripeSubscription = $this->getSubscription($team->stripe_id);
 
-        if (! $subscription) {
-            return [
-                'has_subscription' => false,
-                'status' => 'inactive',
-                'plan' => null,
-                'trial_ends_at' => null,
-                'current_period_end' => null,
-            ];
+            if ($stripeSubscription) {
+                $plan = $this->getPlanFromPriceId($stripeSubscription->items->data[0]->price->id);
+
+                return [
+                    'has_subscription' => true,
+                    'status' => $stripeSubscription->status,
+                    'plan' => $plan ?? $team->stripe_plan,
+                    'trial_ends_at' => $stripeSubscription->trial_end ? date('Y-m-d H:i:s', $stripeSubscription->trial_end) : null,
+                    'current_period_end' => date('Y-m-d H:i:s', $stripeSubscription->current_period_end),
+                ];
+            }
         }
 
         return [
-            'has_subscription' => true,
-            'status' => $subscription->status,
-            'plan' => $team->stripe_plan,
-            'trial_ends_at' => $subscription->trial_end ? now()->timestamp($subscription->trial_end) : null,
-            'current_period_end' => now()->timestamp($subscription->current_period_end),
+            'has_subscription' => false,
+            'status' => 'inactive',
+            'plan' => null,
+            'trial_ends_at' => null,
+            'current_period_end' => null,
         ];
+    }
+    
+    protected function getPlanFromPriceId(string $priceId): ?string
+    {
+        $prices = config('billing.stripe.prices', []);
+        
+        if (empty($prices)) {
+            // Fallback: try to get from cashier config
+            $prices = config('cashier.prices', []);
+        }
+        
+        foreach ($prices as $planKey => $planPriceId) {
+            if ($planPriceId === $priceId) {
+                return $planKey;
+            }
+        }
+        
+        return null;
     }
 
     /**

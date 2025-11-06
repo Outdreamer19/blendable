@@ -52,7 +52,7 @@
               </div>
               <div class="flex-1">
                 <div class="text-sm font-medium text-gray-900 mb-1" v-if="message.role === 'assistant'">
-                  Omni AI
+                  Blendable
                 </div>
                 <div class="prose prose-sm max-w-none" v-html="formatMessage(message.content)"></div>
                 <div class="mt-2 text-xs text-gray-500">
@@ -79,10 +79,10 @@
       <div class="max-w-4xl mx-auto px-4 py-6">
         <div class="text-center">
           <p class="text-sm text-gray-500">
-            This chat was shared from <span class="font-medium text-gray-900">Omni AI</span>
+            This chat was shared from <span class="font-medium text-gray-900">Blendable</span>
           </p>
           <p class="text-xs text-gray-400 mt-1">
-            Create your own AI conversations at <a href="/" class="text-blue-600 hover:text-blue-500">omni-ai.com</a>
+            Create your own AI conversations at <a href="/" class="text-blue-600 hover:text-blue-500">blendable.com</a>
           </p>
         </div>
       </div>

@@ -6,7 +6,7 @@ test.describe('Authenticated Billing Flow', () => {
     await page.goto('/login');
     
     // Fill in login form
-    await page.fill('#email', 'demo@omni-ai.com');
+    await page.fill('#email', 'demo@blendable.com');
     await page.fill('#password', 'password');
     
     // Submit login form

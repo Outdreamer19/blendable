@@ -85,9 +85,9 @@ const faqs = [
       'No! Your existing prompts work exactly as-is. Blendable handles model selection transparently.',
   },
   {
-    question: 'Is there a free tier?',
+    question: 'What plans are available?',
     answer:
-      'Yes! The free tier includes 25k tokens per month and access to lighter models—perfect for getting started.',
+      'We offer Pro and Business plans. Pro is perfect for individuals and small teams, while Business provides advanced features for growing organizations.',
   },
 ]
 </script>

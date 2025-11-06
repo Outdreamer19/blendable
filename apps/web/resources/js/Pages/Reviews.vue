@@ -6,7 +6,7 @@
         <div class="flex justify-between h-16">
           <div class="flex items-center">
             <Link :href="route('welcome')" class="flex-shrink-0">
-              <h1 class="text-2xl font-bold text-indigo-600">OmniAI</h1>
+              <h1 class="text-2xl font-bold text-indigo-600">Blendable</h1>
             </Link>
           </div>
           <div class="flex items-center space-x-4">
@@ -32,7 +32,7 @@
             What our customers say
           </h1>
           <p class="mt-4 text-xl text-gray-600">
-            Join thousands of teams who trust OmniAI for their AI needs
+            Join thousands of teams who trust Blendable for their AI needs
           </p>
         </div>
       </div>
@@ -74,7 +74,7 @@
               </div>
             </div>
             <p class="text-gray-600 mb-4">
-              "OmniAI has completely transformed how our team works with AI. The multi-model approach means we always get the best results, and the interface is incredibly intuitive."
+              "Blendable has completely transformed how our team works with AI. The multi-model approach means we always get the best results, and the interface is incredibly intuitive."
             </p>
             <div class="flex items-center">
               <div class="h-10 w-10 bg-indigo-100 rounded-full flex items-center justify-center">
@@ -202,11 +202,11 @@
           Ready to join thousands of satisfied customers?
         </h2>
         <p class="mt-4 text-xl text-indigo-200">
-          Start your free trial today and experience the power of multi-model AI.
+          Get started today and experience the power of multi-model AI.
         </p>
         <div class="mt-8">
           <Link :href="route('register')" class="bg-white text-indigo-600 px-8 py-3 rounded-md text-lg font-medium hover:bg-gray-100 transition duration-150 ease-in-out">
-            Start Free Trial
+            Get Started
           </Link>
         </div>
       </div>
@@ -228,7 +228,7 @@
         </div>
         <div class="mt-8 md:mt-0 md:order-1">
           <p class="text-center text-base text-gray-400">
-            &copy; 2024 OmniAI. All rights reserved.
+            &copy; 2024 Blendable. All rights reserved.
           </p>
         </div>
       </div>

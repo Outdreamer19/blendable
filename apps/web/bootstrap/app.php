@@ -29,9 +29,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'require.subscription' => \App\Http\Middleware\RequireSubscription::class,
         ]);
 
-        // Exclude billing checkout from CSRF protection for anonymous users
+        // Exclude billing checkout and webhooks from CSRF protection
         $middleware->validateCsrfTokens(except: [
             'billing/checkout',
+            'api/webhooks/stripe',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

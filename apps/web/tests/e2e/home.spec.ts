@@ -5,10 +5,10 @@ test.describe('Home Page', () => {
     await page.goto('/');
     
     // Check if the page title is correct
-    await expect(page).toHaveTitle(/Omni-AI/);
+    await expect(page).toHaveTitle(/Blendable/);
     
     // Check if the main heading is visible
-    await expect(page.locator('h1')).toContainText('Omni-AI');
+    await expect(page.locator('h1')).toContainText('Blendable');
     
     // Check if the navigation is visible
     await expect(page.locator('nav')).toBeVisible();

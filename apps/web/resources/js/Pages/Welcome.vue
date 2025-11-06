@@ -16,7 +16,7 @@ const page = usePage();
 </script>
 
 <template>
-    <Head title="Omni-AI - Multi-Model AI Chat Platform" />
+    <Head title="Blendable - Multi-Model AI Chat Platform" />
     
     <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
         <!-- Sophisticated Navbar -->
@@ -62,7 +62,7 @@ const page = usePage();
                 <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 max-w-3xl mx-auto border border-slate-200 shadow-lg">
                     <h2 class="text-2xl font-semibold mb-6 text-slate-900">Protected by the strongest privacy of any AI assistant.</h2>
                     <p class="text-slate-600 mb-8">
-                        Your conversations are secure and private. What you share with Omni-AI is never shared with advertisers.
+                        Your conversations are secure and private. What you share with Blendable is never shared with advertisers.
                     </p>
                     <div class="flex items-center justify-center space-x-8 text-sm text-slate-500">
                         <div class="flex items-center space-x-2">
@@ -188,10 +188,10 @@ const page = usePage();
         <div class="px-6 py-24 bg-white">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-5xl font-semibold mb-8 tracking-tight">
-                    Go even further with Omni-AI.
+                    Go even further with Blendable.
                 </h2>
                 <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto">
-                    Use Omni-AI on all your devices. Start a conversation on your phone, 
+                    Use Blendable on all your devices. Start a conversation on your phone, 
                     continue on your computer, and finish on your tablet.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -222,7 +222,7 @@ const page = usePage();
                             <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
                                 <Brain class="w-5 h-5 text-white" />
                             </div>
-                            <span class="text-xl font-semibold">Omni-AI</span>
+                            <span class="text-xl font-semibold">Blendable</span>
                         </div>
                         <p class="text-slate-400 text-sm">
                             The most private AI assistant. Your conversations are secure and never shared with advertisers.
@@ -243,7 +243,7 @@ const page = usePage();
                         <ul class="space-y-3 text-sm text-slate-400">
                             <li><Link :href="route('blog')" class="hover:text-white transition-colors">Blog</Link></li>
                             <li><Link :href="route('product-updates')" class="hover:text-white transition-colors">Updates</Link></li>
-                            <li><Link :href="route('chatgpt-vs-omni')" class="hover:text-white transition-colors">vs ChatGPT</Link></li>
+                            <li><Link :href="route('chatgpt-vs-blendable')" class="hover:text-white transition-colors">vs ChatGPT</Link></li>
                         </ul>
                     </div>
                     
@@ -258,7 +258,7 @@ const page = usePage();
                 </div>
                 
                 <div class="border-t border-slate-700 mt-12 pt-8 text-center text-slate-400 text-sm">
-                    <p>&copy; 2024 Omni-AI. All rights reserved.</p>
+                    <p>&copy; 2024 Blendable. All rights reserved.</p>
                 </div>
             </div>
         </footer>

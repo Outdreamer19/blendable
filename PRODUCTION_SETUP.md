@@ -6,7 +6,7 @@ Create a `.env` file with the following production settings:
 
 ```bash
 # Production Environment Configuration
-APP_NAME="OmniAI"
+APP_NAME="Blendable"
 APP_ENV=production
 APP_KEY=base64:YOUR_APP_KEY_HERE
 APP_DEBUG=false
@@ -17,7 +17,7 @@ APP_URL=https://yourdomain.com
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=omni_ai_production
+DB_DATABASE=blendable_production
 DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 

@@ -5,7 +5,7 @@
 Before running the login page tests, ensure you have:
 
 1. **Laravel Server Running**: The application should be running on `http://127.0.0.1:8002`
-2. **Demo User**: A test user with email `demo@omni-ai.com` and password `password`
+2. **Demo User**: A test user with email `demo@blendable.com` and password `password`
 3. **Node.js Dependencies**: All Playwright dependencies should be installed
 
 ## Running the Tests

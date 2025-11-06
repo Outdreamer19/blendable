@@ -6,7 +6,7 @@
         <div class="flex justify-between h-16">
           <div class="flex items-center">
             <Link :href="route('welcome')" class="flex-shrink-0">
-              <h1 class="text-2xl font-bold text-indigo-600">OmniAI</h1>
+              <h1 class="text-2xl font-bold text-indigo-600">Blendable</h1>
             </Link>
           </div>
           <div class="flex items-center space-x-4">
@@ -29,10 +29,10 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
-            ChatGPT vs OmniAI
+            ChatGPT vs Blendable
           </h1>
           <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            See how OmniAI compares to ChatGPT and why thousands of users are making the switch.
+            See how Blendable compares to ChatGPT and why thousands of users are making the switch.
           </p>
         </div>
       </div>
@@ -48,7 +48,7 @@
                 <tr>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
                   <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">ChatGPT</th>
-                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">OmniAI</th>
+                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Blendable</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
@@ -169,7 +169,7 @@
     <div class="bg-gray-50 py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-extrabold text-gray-900">Why Choose OmniAI?</h2>
+          <h2 class="text-3xl font-extrabold text-gray-900">Why Choose Blendable?</h2>
         </div>
         <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
           <div class="space-y-8">
@@ -248,7 +248,7 @@
               </div>
             </div>
             <p class="text-gray-600 mb-4">
-              "Switched from ChatGPT to OmniAI and never looked back. The multi-model approach means I always get the best results for any task."
+              "Switched from ChatGPT to Blendable and never looked back. The multi-model approach means I always get the best results for any task."
             </p>
             <div class="flex items-center">
               <div class="h-10 w-10 bg-indigo-100 rounded-full flex items-center justify-center">
@@ -309,11 +309,11 @@
           Ready to make the switch?
         </h2>
         <p class="mt-4 text-xl text-indigo-200">
-          Join thousands of users who have upgraded from ChatGPT to OmniAI.
+          Join thousands of users who have upgraded from ChatGPT to Blendable.
         </p>
         <div class="mt-8">
           <Link :href="route('register')" class="bg-white text-indigo-600 px-8 py-3 rounded-md text-lg font-medium hover:bg-gray-100 transition duration-150 ease-in-out">
-            Start Free Trial
+            Get Started
           </Link>
         </div>
       </div>
@@ -335,7 +335,7 @@
         </div>
         <div class="mt-8 md:mt-0 md:order-1">
           <p class="text-center text-base text-gray-400">
-            &copy; 2024 OmniAI. All rights reserved.
+            &copy; 2024 Blendable. All rights reserved.
           </p>
         </div>
       </div>

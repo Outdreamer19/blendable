@@ -151,7 +151,7 @@
 
 					<!-- <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
 						<MarketingButton :href="registerRoute" as="a" variant="primary">
-							Start Free
+							Get Started
 						</MarketingButton>
 						<MarketingButton href="#how-it-works" as="a" variant="ghost">
 							See how it works
@@ -165,52 +165,52 @@
 						<div class="big-circle">
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									GPT
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/ChatGPT-Logo.svg.png" alt="ChatGPT" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									CL
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/Claude_AI_symbol.svg.png" alt="Claude AI" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									GM
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/gemini-color.png" alt="Google Gemini" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									AI
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/Deepseek-logo-icon.svg.png" alt="DeepSeek" class="w-full h-full object-contain" />
 								</div>
 							</div>
 						</div>
 						<div class="circle">
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									LLM
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/ChatGPT-Logo.svg.png" alt="ChatGPT" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									API
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/Claude_AI_symbol.svg.png" alt="Claude AI" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									AI
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/gemini-color.png" alt="Google Gemini" class="w-full h-full object-contain" />
 								</div>
 							</div>
 							<div class="icon-block">
 								<div
-									class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-									ML
+									class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-lg p-2">
+									<img src="/img/logo/Deepseek-logo-icon.svg.png" alt="DeepSeek" class="w-full h-full object-contain" />
 								</div>
 							</div>
 						</div>

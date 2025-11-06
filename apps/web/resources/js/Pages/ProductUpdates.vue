@@ -6,7 +6,7 @@
         <div class="flex justify-between h-16">
           <div class="flex items-center">
             <Link :href="route('welcome')" class="flex-shrink-0">
-              <h1 class="text-2xl font-bold text-indigo-600">OmniAI</h1>
+              <h1 class="text-2xl font-bold text-indigo-600">Blendable</h1>
             </Link>
           </div>
           <div class="flex items-center space-x-4">
@@ -35,7 +35,7 @@
             Product Updates
           </h1>
           <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            Stay informed about the latest features, improvements, and enhancements to OmniAI.
+            Stay informed about the latest features, improvements, and enhancements to Blendable.
           </p>
         </div>
       </div>
@@ -309,7 +309,7 @@
         </div>
         <div class="mt-8 md:mt-0 md:order-1">
           <p class="text-center text-base text-gray-400">
-            &copy; 2024 OmniAI. All rights reserved.
+            &copy; 2024 Blendable. All rights reserved.
           </p>
         </div>
       </div>

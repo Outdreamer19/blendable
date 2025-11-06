@@ -17,7 +17,7 @@
           <section class="mb-12">
             <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mb-4">1. Introduction</h2>
             <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-              OmniAI ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains 
+              Blendable ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains 
               how we collect, use, disclose, and safeguard your information when you use our Service.
             </p>
           </section>

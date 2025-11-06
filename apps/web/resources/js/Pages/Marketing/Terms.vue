@@ -17,7 +17,7 @@
           <section class="mb-12">
             <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mb-4">1. Agreement to Terms</h2>
             <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-              By accessing or using OmniAI ("Service"), you agree to be bound by these Terms of Service ("Terms"). 
+              By accessing or using Blendable ("Service"), you agree to be bound by these Terms of Service ("Terms"). 
               If you disagree with any part of these Terms, you may not access the Service.
             </p>
           </section>
@@ -25,7 +25,7 @@
           <section class="mb-12">
             <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mb-4">2. Description of Service</h2>
             <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-              OmniAI is a multi-model AI chat platform that provides access to various artificial intelligence models 
+              Blendable is a multi-model AI chat platform that provides access to various artificial intelligence models 
               including but not limited to OpenAI GPT, Anthropic Claude, and Google Gemini. The Service allows users 
               to interact with AI models through chat interfaces, create personas, manage workspaces, and collaborate with teams.
             </p>
@@ -77,7 +77,7 @@
           <section class="mb-12">
             <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mb-4">6. Intellectual Property</h2>
             <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-              The Service and its original content, features, and functionality are owned by OmniAI and are protected 
+              The Service and its original content, features, and functionality are owned by Blendable and are protected 
               by international copyright, trademark, patent, trade secret, and other intellectual property laws. You may 
               not copy, modify, distribute, sell, or lease any part of the Service without our prior written consent.
             </p>
@@ -103,7 +103,7 @@
           <section class="mb-12">
             <h2 class="text-2xl font-semibold text-slate-900 dark:text-white mb-4">9. Limitation of Liability</h2>
             <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-              TO THE MAXIMUM EXTENT PERMITTED BY LAW, OMNIAI SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, 
+              TO THE MAXIMUM EXTENT PERMITTED BY LAW, BLENDABLE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, 
               SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED 
               DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES.
             </p>

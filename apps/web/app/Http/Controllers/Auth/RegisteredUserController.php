@@ -21,9 +21,13 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return Inertia::render('Auth/Register');
+        $plan = $request->query('plan');
+        
+        return Inertia::render('Auth/Register', [
+            'plan' => $plan && in_array($plan, ['pro', 'business']) ? $plan : null,
+        ]);
     }
 
     /**
@@ -83,8 +87,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // Redirect to billing page to subscribe instead of dashboard
+        // Redirect to onboarding/subscription page (no AppLayout)
         return redirect(route('billing.index', absolute: false))
-            ->with('info', 'Please subscribe to a plan to get started.');
+            ->with('success', 'Welcome! Choose a plan to get started.');
     }
 }

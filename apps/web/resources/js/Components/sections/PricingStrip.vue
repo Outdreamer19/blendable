@@ -5,10 +5,10 @@
         Simple, transparent pricing
       </h2>
       <p class="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-        Start free, upgrade as you grow
+        Choose a plan that grows with you
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
         <div
           v-for="plan in plans"
           :key="plan.name"
@@ -43,12 +43,6 @@
 import MarketingButton from '@/Components/ui/MarketingButton.vue'
 
 const plans = [
-  {
-    name: 'Free',
-    price: '£0',
-    period: '/mo',
-    features: ['25k tokens/mo', '50 chats', 'Light models'],
-  },
   {
     name: 'Pro',
     price: '£19',

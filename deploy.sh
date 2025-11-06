@@ -10,6 +10,17 @@ cd $FORGE_RELEASE_DIRECTORY
 # Navigate to Laravel application directory
 cd apps/web
 
+# CRITICAL: Create .env symlink BEFORE any artisan commands
+# This ensures the .env file is available when config is cached
+# Use absolute path to shared .env file
+SHARED_ENV="/home/forge/blendable.app/shared/.env"
+if [ ! -f .env ] && [ -f "$SHARED_ENV" ]; then
+    ln -sf "$SHARED_ENV" .env
+    echo "✅ Created .env symlink to shared directory"
+elif [ ! -f .env ]; then
+    echo "⚠️  Warning: .env file not found and shared .env doesn't exist"
+fi
+
 # CRITICAL: Remove cached config file manually to ensure fresh .env is loaded
 # This prevents stale config from using wrong database credentials
 rm -f bootstrap/cache/config.php

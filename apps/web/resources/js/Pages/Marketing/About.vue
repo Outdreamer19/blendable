@@ -175,7 +175,7 @@
                 :href="route('register')"
                 class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-slate-50 transition-colors"
               >
-                Start Free Trial
+                Get Started
               </Link>
               <Link
                 :href="route('contact')"

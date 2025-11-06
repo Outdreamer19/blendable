@@ -97,7 +97,7 @@ class BillingTest extends TestCase
     public function test_billing_checkout_redirects_to_stripe()
     {
         $response = $this->actingAs($this->user)
-            ->post(route('billing.checkout'), [
+            ->post(route('billing.checkout.post'), [
                 'plan' => 'pro',
             ]);
 
@@ -188,7 +188,7 @@ class BillingTest extends TestCase
     public function test_billing_handles_subscription_upgrade()
     {
         $response = $this->actingAs($this->user)
-            ->post(route('billing.checkout'), [
+            ->post(route('billing.checkout.post'), [
                 'plan' => 'pro',
             ]);
 
@@ -198,7 +198,7 @@ class BillingTest extends TestCase
     public function test_billing_handles_subscription_downgrade()
     {
         $response = $this->actingAs($this->user)
-            ->post(route('billing.checkout'), [
+            ->post(route('billing.checkout.post'), [
                 'plan' => 'business',
             ]);
 

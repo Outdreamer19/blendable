@@ -61,7 +61,7 @@ test.describe('Navbar Transition Tests', () => {
     await page.goto('/')
     await page.waitForLoadState('networkidle')
     
-    const logoText = page.locator('span:has-text("Omni-AI")')
+    const logoText = page.locator('span:has-text("Blendable")')
     
     // Check logo text is visible initially
     await expect(logoText).toBeVisible()
