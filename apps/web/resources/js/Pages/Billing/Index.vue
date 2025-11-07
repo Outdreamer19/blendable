@@ -38,7 +38,7 @@
               <div>
                 <div class="text-2xl font-bold text-gray-900">{{ subscription.plan_name || 'Business' }}</div>
                 <div class="text-sm text-gray-500">
-                  £{{ subscription.plan_price || 79 }}/month
+                  ${{ subscription.plan_price || 79 }}/month
                 </div>
                 <div v-if="subscription.status === 'active'" class="mt-2">
                   <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">

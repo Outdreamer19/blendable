@@ -16,9 +16,9 @@ test.describe('Stripe Checkout Flow', () => {
     await expect(page.locator('text=Business')).toBeVisible();
     
     // Check if prices are displayed correctly
-    await expect(page.locator('text=£0')).toBeVisible();
-    await expect(page.locator('text=£19')).toBeVisible();
-    await expect(page.locator('text=£79')).toBeVisible();
+    await expect(page.locator('text=$0')).toBeVisible();
+    await expect(page.locator('text=$19.99')).toBeVisible();
+    await expect(page.locator('text=$79')).toBeVisible();
   });
 
   test('should redirect to Stripe checkout when selecting Pro plan', async ({ page }) => {

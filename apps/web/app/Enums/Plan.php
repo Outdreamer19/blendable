@@ -15,11 +15,11 @@ enum Plan: string
         };
     }
 
-    public function priceGbp(): int
+    public function priceUsd(): float
     {
         return match ($this) {
-            self::PRO => 19,
-            self::BUSINESS => 79,
+            self::PRO => 19.99,
+            self::BUSINESS => 79.00,
         };
     }
 

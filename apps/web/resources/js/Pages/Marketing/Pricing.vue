@@ -151,7 +151,7 @@ const toggleFaq = (index: number): void => {
 const transformedPlans = computed(() => {
   return props.plans?.map((plan: any) => ({
     name: plan.name,
-    price: `£${plan.price}`,
+    price: `$${plan.price}`,
     period: '/mo',
     description: plan.key === 'pro' ? 'For power users and small teams' : 'For growing teams',
     popular: plan.key === 'pro',

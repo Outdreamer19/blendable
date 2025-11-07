@@ -45,13 +45,13 @@ import MarketingButton from '@/Components/ui/MarketingButton.vue'
 const plans = [
   {
     name: 'Pro',
-    price: '£19',
+    price: '$19.99',
     period: '/mo',
     features: ['500k tokens/mo', 'Full model roster', 'Uploads', 'Priority support'],
   },
   {
     name: 'Business',
-    price: '£79',
+    price: '$79',
     period: '/mo',
     features: ['5 seats', '2M tokens pooled', 'Analytics', 'Roles'],
   },

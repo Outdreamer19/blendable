@@ -27,9 +27,9 @@ test('Verify no Free plan on pricing page', async ({ page }) => {
   console.log(`Has "Start free" text: ${hasStartFreeText}`)
   
   // Verify Pro plan price
-  await expect(page.locator('text=£19')).toBeVisible()
+  await expect(page.locator('text=$19.99')).toBeVisible()
   // Verify Business plan price
-  await expect(page.locator('text=£79')).toBeVisible()
+  await expect(page.locator('text=$79')).toBeVisible()
   
   // Check checkout buttons work
   const proCheckoutLink = page.locator('a[href*="billing/checkout?plan=pro"]').first()
