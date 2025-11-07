@@ -150,6 +150,7 @@ const toggleFaq = (index: number): void => {
 // Transform plans to match component structure
 const transformedPlans = computed(() => {
   return props.plans?.map((plan: any) => ({
+    key: plan.key, // Include key for checkout URL generation
     name: plan.name,
     price: `$${plan.price}`,
     period: '/mo',

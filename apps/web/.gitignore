@@ -23,3 +23,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Test reports and results
+/playwright-report
+/test-results
+**/error-context.md
