@@ -26,6 +26,12 @@ class BillingController extends Controller
         // Get subscription status using our StripeService
         $subscriptionStatus = $this->stripeService->getSubscriptionStatus($user);
         
+        // Set default plan for admin users if not set
+        if ($this->stripeService->isAdmin($user) && !$user->plan) {
+            $user->update(['plan' => 'business']);
+            $subscriptionStatus['plan'] = 'business';
+        }
+        
         // If user doesn't have an active subscription, show onboarding page
         if (!$subscriptionStatus['has_subscription'] || !in_array($subscriptionStatus['status'], ['active', 'trialing'])) {
             // Get plan data for the onboarding page
@@ -191,6 +197,11 @@ class BillingController extends Controller
                         'plan' => $plan,
                         'interval' => $interval,
                     ],
+                    'custom_text' => [
+                        'submit' => [
+                            'message' => 'You\'ll be redirected to complete your subscription.',
+                        ],
+                    ],
                 ]);
 
             return redirect($checkout->url);
@@ -341,6 +352,11 @@ class BillingController extends Controller
             'metadata' => [
                 'plan' => $plan,
                 'anonymous' => 'true',
+            ],
+            'custom_text' => [
+                'submit' => [
+                    'message' => 'You\'ll be redirected to complete your subscription.',
+                ],
             ],
         ]);
     }

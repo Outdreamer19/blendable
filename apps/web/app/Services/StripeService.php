@@ -217,10 +217,33 @@ class StripeService
     }
 
     /**
+     * Check if user is an admin (bypasses subscription requirements)
+     */
+    public function isAdmin(User $user): bool
+    {
+        $adminEmails = array_filter(
+            array_map('trim', explode(',', env('ADMIN_EMAILS', '')))
+        );
+        
+        return in_array(strtolower($user->email), array_map('strtolower', $adminEmails));
+    }
+
+    /**
      * Get subscription status for user
      */
     public function getSubscriptionStatus(User $user): array
     {
+        // Admin users bypass subscription checks
+        if ($this->isAdmin($user)) {
+            return [
+                'has_subscription' => true,
+                'status' => 'active',
+                'plan' => $user->plan ?? 'business', // Default to business plan for admins
+                'trial_ends_at' => null,
+                'current_period_end' => null,
+            ];
+        }
+
         // Check Cashier subscription first (primary method)
         $subscription = $user->subscription('default');
         

@@ -30,6 +30,11 @@ class RequireSubscription
             return redirect()->route('login');
         }
 
+        // Admin users bypass subscription checks
+        if ($this->stripeService->isAdmin($user)) {
+            return $next($request);
+        }
+
         // Check if user has an active subscription
         $subscriptionStatus = $this->stripeService->getSubscriptionStatus($user);
 
