@@ -62,7 +62,7 @@
                 Smart Model Routing
               </h3>
               <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                Automatically route every prompt to the best AI model—GPT-4, Claude, Gemini, and more. Zero prompt changes required.
+                Automatically route every prompt to the best AI modelGPT-4, Claude, Gemini, and more. Zero prompt changes required.
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@
             Cost Optimization
           </h3>
           <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-            Set budgets, per-plan caps, and automatic fallbacks to cheaper models when appropriate—cut costs without sacrificing quality.
+            Set budgets, per-plan caps, and automatic fallbacks to cheaper models when appropriate, cut costs without sacrificing quality.
           </p>
         </div>
 
