@@ -1,98 +1,144 @@
 <template>
   <MarketingLayout>
-    <div class="py-20 md:py-32">
-      <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <!-- Header -->
-        <div class="text-center mb-16">
-          <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
-            Simple, transparent pricing
+    <div class="py-20 md:py-32 bg-[#F9FAFB] dark:bg-slate-900">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+          <!-- PRICING Tag -->
+          <div
+            class="inline-flex items-center gap-2 px-4 py-1.5 bg-gray-100 dark:bg-slate-800 rounded-full shadow-sm border border-gray-200 dark:border-slate-700 mb-4">
+            <span
+              class="text-sm font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide">PRICING</span>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal text-gray-900 dark:text-white mb-4">
+            Simple Price For All
           </h1>
-          <p class="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
-            Choose a plan that grows with you. Upgrade anytime for more features and support.
+
+          <!-- Subtitle -->
+          <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+            Choose the perfect plan for your AI routing needs. Scale as you grow.
           </p>
 
-          <!-- Plan Toggle (placeholder) -->
-          <div class="flex items-center justify-center gap-4">
-            <span class="text-slate-600 dark:text-slate-300 font-medium">Monthly</span>
-            <button
-              @click="isYearly = !isYearly"
-              class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              :class="isYearly ? 'bg-indigo-500' : 'bg-slate-300 dark:bg-white/10'"
-            >
+          <!-- Monthly/Yearly Toggle -->
+          <div class="flex items-center justify-center gap-2 mb-12">
+            <div class="relative inline-flex bg-gray-100 dark:bg-slate-800 rounded-2xl p-1 border border-gray-200/50 dark:border-slate-700/50 shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_2px_4px_-1px_rgba(0,0,0,0.15),0_1px_2px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_2px_4px_-1px_rgba(0,0,0,0.3),0_1px_2px_-1px_rgba(0,0,0,0.2)]">
+              <!-- Top highlight -->
+              <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-b from-white/80 to-transparent opacity-60 dark:opacity-10 rounded-t-lg"></div>
+              <!-- Bottom shadow border -->
+              <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent dark:via-slate-600/50"></div>
+              <button @click="isYearly = false" :class="[
+                'px-6 py-2 rounded-2xl font-medium text-sm transition-all relative z-10',
+                !isYearly
+                  ? 'bg-gray-900 dark:bg-gray-700 text-white shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_2px_4px_-1px_rgba(0,0,0,0.4),0_1px_2px_-1px_rgba(0,0,0,0.3)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_2px_4px_-1px_rgba(0,0,0,0.6),0_1px_2px_-1px_rgba(0,0,0,0.45)]'
+                  : 'text-gray-700 dark:text-gray-300'
+              ]">
+                Monthly
+              </button>
+              <button @click="isYearly = true" :class="[
+                'px-6 py-2 rounded-2xl font-medium text-sm transition-all relative z-10',
+                isYearly
+                  ? 'bg-gray-900 dark:bg-gray-700 text-white shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_2px_4px_-1px_rgba(0,0,0,0.4),0_1px_2px_-1px_rgba(0,0,0,0.3)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_2px_4px_-1px_rgba(0,0,0,0.6),0_1px_2px_-1px_rgba(0,0,0,0.45)]'
+                  : 'text-gray-700 dark:text-gray-300'
+              ]">
+                Yearly
+              </button>
+              <!-- 30% off badge positioned to the right of Yearly -->
               <span
-                :class="[
-                  'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
-                  isYearly ? 'translate-x-6' : 'translate-x-1',
-                ]"
-              ></span>
-            </button>
-            <span class="text-slate-600 dark:text-slate-300 font-medium">
-              Yearly
-              <span class="text-indigo-600 dark:text-indigo-400 font-semibold ml-1">(Coming soon)</span>
-            </span>
+                class="absolute -right-16 top-1/2 -translate-y-1/2 bg-gray-900 dark:bg-gray-700 text-white text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_2px_4px_-1px_rgba(0,0,0,0.4),0_1px_2px_-1px_rgba(0,0,0,0.3)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_2px_4px_-1px_rgba(0,0,0,0.6),0_1px_2px_-1px_rgba(0,0,0,0.45)]">
+                30% off
+              </span>
+            </div>
           </div>
         </div>
 
         <!-- Pricing Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16">
           <div
             v-for="plan in transformedPlans"
-            :key="plan.name"
-            class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] backdrop-blur p-8 relative shadow-sm dark:shadow-none"
-            :class="plan.popular ? 'ring-2 ring-indigo-500/50' : ''"
-          >
-            <div v-if="plan.popular" class="absolute top-0 right-6 -translate-y-1/2">
-              <span class="bg-gradient-to-r from-indigo-500 to-cyan-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+            :key="plan.key"
+            class="relative bg-white dark:bg-slate-800 rounded-2xl p-8 border border-gray-200/50 dark:border-slate-700/50 shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_4px_4px_-2px_rgba(0,0,0,0.25),0_2px_2px_-1px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_4px_4px_-2px_rgba(0,0,0,0.5),0_2px_2px_-1px_rgba(0,0,0,0.35)] hover:shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.05)_inset,0_6px_6px_-3px_rgba(0,0,0,0.3),0_3px_3px_-2px_rgba(0,0,0,0.18)] dark:hover:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.2)_inset,0_6px_6px_-3px_rgba(0,0,0,0.6),0_3px_3px_-2px_rgba(0,0,0,0.4)] transition-shadow">
+            <!-- Top highlight overlay - light from above -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-b from-white via-white/80 to-transparent opacity-80 dark:opacity-15 rounded-t-2xl"></div>
+            <!-- Bottom shadow border -->
+            <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300/50 to-transparent dark:via-slate-600/50"></div>
+            <!-- Popular Badge -->
+            <div v-if="plan.popular" class="absolute top-6 right-6 z-10">
+              <span
+                class="inline-flex items-center gap-1 bg-gray-900 dark:bg-gray-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" />
+                </svg>
                 Popular
               </span>
             </div>
 
-            <div class="mb-6">
-              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">{{ plan.name }}</h3>
-              <div class="flex items-baseline">
-                <span class="text-5xl font-bold text-slate-900 dark:text-white">{{ plan.price }}</span>
-                <span class="text-slate-600 dark:text-slate-400 ml-2">{{ plan.period }}</span>
+            <div class="relative mb-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">{{ plan.name }}</h3>
+              <div class="mb-3">
+                <span class="text-5xl font-bold text-gray-900 dark:text-white">{{ plan.price }}</span>
+                <span class="text-gray-500 dark:text-gray-400 ml-2 text-lg">/month</span>
               </div>
-              <p class="text-slate-600 dark:text-slate-300 text-sm mt-2">{{ plan.description }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">
+                {{ plan.description }}
+              </p>
             </div>
 
-            <ul class="space-y-3 mb-8">
-              <li v-for="feature in plan.features" :key="feature" class="flex items-start text-slate-600 dark:text-slate-300 text-sm">
-                <svg class="w-5 h-5 text-indigo-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            <a
+              :href="getCheckoutUrl(plan.key)"
+              :class="[
+                'relative w-full mb-6 px-6 py-2 rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-colors border',
+                plan.popular
+                  ? 'bg-gray-900 dark:bg-gray-700 text-white hover:bg-gray-800 dark:hover:bg-gray-600 border-gray-800/50 dark:border-gray-600/50 shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_2px_5px_-1px_rgba(0,0,0,0.5),0_1px_4px_-1px_rgba(0,0,0,0.4)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_2px_5px_-1px_rgba(0,0,0,0.75),0_1px_4px_-1px_rgba(0,0,0,0.6)] hover:shadow-[0_1px_0_0_rgba(255,255,255,0.1)_inset,0_-1px_0_0_rgba(0,0,0,0.4)_inset,0_3px_6px_-2px_rgba(0,0,0,0.55),0_2px_5px_-1px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_-1px_0_0_rgba(0,0,0,0.5)_inset,0_3px_6px_-2px_rgba(0,0,0,0.85),0_2px_5px_-1px_rgba(0,0,0,0.65)]'
+                  : 'bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-slate-600 border-gray-200/50 dark:border-slate-600/50 shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.15)_inset,0_2px_5px_-1px_rgba(0,0,0,0.4),0_1px_4px_-1px_rgba(0,0,0,0.3)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.35)_inset,0_2px_5px_-1px_rgba(0,0,0,0.65),0_1px_4px_-1px_rgba(0,0,0,0.5)] hover:shadow-[0_1px_0_0_rgba(255,255,255,0.9)_inset,0_-1px_0_0_rgba(0,0,0,0.15)_inset,0_3px_6px_-2px_rgba(0,0,0,0.45),0_2px_5px_-1px_rgba(0,0,0,0.35)] dark:hover:shadow-[0_1px_0_0_rgba(255,255,255,0.08)_inset,0_-1px_0_0_rgba(0,0,0,0.35)_inset,0_3px_6px_-2px_rgba(0,0,0,0.75),0_2px_5px_-1px_rgba(0,0,0,0.55)]'
+              ]">
+              <!-- Top highlight -->
+              <div :class="[
+                'absolute top-0 left-0 right-0 h-px rounded-t-lg',
+                plan.popular
+                  ? 'bg-gradient-to-b from-white/20 to-transparent opacity-40 dark:opacity-10'
+                  : 'bg-gradient-to-b from-white/80 to-transparent opacity-60 dark:opacity-10'
+              ]"></div>
+              <span class="relative">Get Started</span>
+              <svg class="w-4 h-4 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+
+            <ul class="space-y-3 border-t-2 border-dotted border-gray-300 dark:border-slate-700/50 pt-4">
+              <li v-for="feature in plan.features" :key="feature"
+                class="flex items-start text-gray-600 dark:text-gray-400 text-sm">
+                <svg class="w-5 h-5 text-gray-900 dark:text-gray-300 mr-3 flex-shrink-0 mt-0.5" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 13l4 4L19 7" />
                 </svg>
                 {{ feature }}
               </li>
             </ul>
-
-            <MarketingButton
-              :href="getCheckoutUrl(plan.key)"
-              as="a"
-              variant="ghost"
-              class="w-full justify-center"
-            >
-              Get Started
-            </MarketingButton>
           </div>
         </div>
 
         <!-- FAQ Section -->
-        <div class="mt-20 border-t border-slate-200 dark:border-white/10 pt-16">
-          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-12">Pricing FAQ</h2>
+        <div class="mt-20 border-t border-gray-200 dark:border-slate-700/50 pt-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white text-center mb-12">Pricing FAQ</h2>
           <div class="max-w-3xl mx-auto space-y-4">
             <div
               v-for="(faq, index) in faqs"
               :key="index"
-              class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.04] backdrop-blur overflow-hidden shadow-sm dark:shadow-none"
+              class="rounded-2xl border border-gray-200/50 dark:border-slate-700/50 bg-white dark:bg-slate-800 overflow-hidden shadow-sm dark:shadow-none"
             >
               <button
                 @click="toggleFaq(index)"
-                class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-white/[0.06] transition-colors"
+                class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors"
               >
-                <span class="font-semibold text-slate-900 dark:text-white">{{ faq.question }}</span>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ faq.question }}</span>
                 <svg
                   :class="[
-                    'w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform',
+                    'w-5 h-5 text-gray-500 dark:text-gray-400 transition-transform',
                     openFaqs.includes(index) ? 'rotate-180' : '',
                   ]"
                   fill="none"
@@ -104,7 +150,7 @@
               </button>
               <div
                 v-show="openFaqs.includes(index)"
-                class="px-6 pb-4 text-slate-600 dark:text-slate-300 leading-relaxed"
+                class="px-6 pb-4 text-gray-600 dark:text-gray-300 leading-relaxed"
                 v-html="faq.answer"
               ></div>
             </div>
@@ -119,7 +165,6 @@
 import { ref, computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import MarketingLayout from '@/Layouts/MarketingLayout.vue'
-import MarketingButton from '@/Components/ui/MarketingButton.vue'
 
 const props = defineProps({
   plans: Array,
@@ -133,10 +178,11 @@ const isYearly = ref(false)
 const openFaqs = ref<number[]>([])
 
 const getCheckoutUrl = (planKey: string): string => {
+  const interval = isYearly.value ? 'yearly' : 'monthly'
   if (page.props.auth?.user) {
-    return `/billing/checkout?plan=${planKey}`
+    return `/billing/checkout?plan=${planKey}&interval=${interval}`
   }
-  return `/register?plan=${planKey}`
+  return `/register?plan=${planKey}&interval=${interval}`
 }
 
 const toggleFaq = (index: number): void => {
@@ -147,14 +193,31 @@ const toggleFaq = (index: number): void => {
   }
 }
 
+// Price mapping for monthly/yearly
+const priceMap: Record<string, { monthly: number; yearly: number }> = {
+  pro: {
+    monthly: 19.99,
+    yearly: 13, // 30% off
+  },
+  business: {
+    monthly: 79,
+    yearly: 55, // 30% off
+  },
+}
+
+const getPrice = (planKey: string): string => {
+  const prices = priceMap[planKey] || { monthly: 0, yearly: 0 }
+  const price = isYearly.value ? prices.yearly : prices.monthly
+  return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
+
 // Transform plans to match component structure
 const transformedPlans = computed(() => {
   return props.plans?.map((plan: any) => ({
-    key: plan.key, // Include key for checkout URL generation
+    key: plan.key,
     name: plan.name,
-    price: `$${plan.price}`,
-    period: '/mo',
-    description: plan.key === 'pro' ? 'For power users and small teams' : 'For growing teams',
+    price: getPrice(plan.key),
+    description: plan.key === 'pro' ? 'For power users and teams who need advanced AI routing' : 'For growing teams that need collaboration and advanced analytics',
     popular: plan.key === 'pro',
     features: plan.features || [],
   })) || []

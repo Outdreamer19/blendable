@@ -59,4 +59,41 @@ test.describe('Billing Functionality', () => {
     // Check if API calls used is displayed
     await expect(page.locator('[data-testid="api-calls-used"]')).toBeVisible();
   });
+
+  test('should display monthly/yearly toggle on billing page', async ({ page }) => {
+    await page.goto('/billing');
+    
+    // Wait for the page to load
+    await page.waitForLoadState('networkidle');
+    
+    // Check if "Available Plans" heading is visible
+    await expect(page.locator('text=Available Plans')).toBeVisible();
+    
+    // Check if Monthly button is visible
+    const monthlyButton = page.locator('button:has-text("Monthly")');
+    await expect(monthlyButton).toBeVisible();
+    
+    // Check if Yearly button is visible
+    const yearlyButton = page.locator('button:has-text("Yearly")');
+    await expect(yearlyButton).toBeVisible();
+    
+    // Check if toggle container is visible
+    const toggleContainer = page.locator('text=Monthly').locator('..').locator('..');
+    await expect(toggleContainer).toBeVisible();
+    
+    // Take a screenshot for debugging
+    await page.screenshot({ path: 'test-results/billing-toggle-test.png', fullPage: true });
+    
+    // Test clicking the toggle
+    await yearlyButton.click();
+    
+    // Check if "30% off" badge appears when yearly is selected
+    await expect(page.locator('text=30% off')).toBeVisible({ timeout: 2000 });
+    
+    // Click back to monthly
+    await monthlyButton.click();
+    
+    // Verify "30% off" is hidden
+    await expect(page.locator('text=30% off')).not.toBeVisible({ timeout: 1000 });
+  });
 });

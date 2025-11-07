@@ -2,14 +2,14 @@
   <MarketingLayout>
     <Head title="Create Your Account" />
     
-    <section class="min-h-screen py-12 md:py-20 bg-[#F5F5F5] dark:bg-slate-950">
+    <section class="min-h-screen py-4 md:py-10 bg-[#F5F5F5] dark:bg-slate-950">
       <div class="max-w-7xl mx-auto px-4 md:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <!-- Left Side: Registration Form -->
           <div class="w-full">
             <div class="text-center lg:text-left mb-8">
               <h1 class="text-4xl md:text-5xl font-normal text-gray-900 dark:text-white mb-4">
-                Create Your Account
+                Create Your Account7
               </h1>
               <p class="text-lg text-gray-600 dark:text-gray-400">
                 Start routing AI models intelligently. Join thousands of developers already using Blendable.

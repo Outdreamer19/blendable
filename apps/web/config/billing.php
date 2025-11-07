@@ -24,8 +24,14 @@ return [
 
     'stripe' => [
         'prices' => [
-            'pro' => env('STRIPE_PRO_PRICE_ID'),
-            'business' => env('STRIPE_BUSINESS_PRICE_ID'),
+            'pro' => [
+                'monthly' => env('STRIPE_PRO_PRICE_ID'),
+                'yearly' => env('STRIPE_PRO_YEARLY_PRICE_ID'),
+            ],
+            'business' => [
+                'monthly' => env('STRIPE_BUSINESS_PRICE_ID'),
+                'yearly' => env('STRIPE_BUSINESS_YEARLY_PRICE_ID'),
+            ],
         ],
     ],
 ];

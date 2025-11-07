@@ -143,6 +143,7 @@ class BillingController extends Controller
         $user = Auth::user();
 
         $plan = $request->input('plan') ?? $request->query('plan');
+        $interval = $request->input('interval') ?? $request->query('interval') ?? 'monthly';
         
         if (!$plan) {
             return redirect()->route('pricing')
@@ -151,19 +152,24 @@ class BillingController extends Controller
 
         $request->validate([
             'plan' => 'required|in:pro,business',
+            'interval' => 'nullable|in:monthly,yearly',
         ]);
 
         // If user is not authenticated, redirect to registration with plan parameter
         if (!$user) {
-            return redirect()->route('register', ['plan' => $plan])
+            return redirect()->route('register', [
+                'plan' => $plan,
+                'interval' => $interval,
+            ])
                 ->with('info', 'Please create an account to continue with checkout.');
         }
 
         try {
-            $priceId = $this->getPriceId($plan);
+            $priceId = $this->getPriceId($plan, $interval);
         } catch (\InvalidArgumentException $e) {
             \Log::error('Stripe price ID not configured', [
                 'plan' => $plan,
+                'interval' => $interval,
                 'error' => $e->getMessage(),
             ]);
             
@@ -179,6 +185,7 @@ class BillingController extends Controller
                     'cancel_url' => route('pricing'),
                     'metadata' => [
                         'plan' => $plan,
+                        'interval' => $interval,
                     ],
                 ]);
 
@@ -241,9 +248,11 @@ class BillingController extends Controller
     {
         $prices = config('billing.stripe.prices');
         
-        foreach ($prices as $planKey => $planPriceId) {
-            if ($planPriceId === $priceId) {
-                return $planKey;
+        foreach ($prices as $planKey => $planPrices) {
+            foreach ($planPrices as $interval => $planPriceId) {
+                if ($planPriceId === $priceId) {
+                    return $planKey;
+                }
             }
         }
         
@@ -290,11 +299,25 @@ class BillingController extends Controller
         return response('OK', 200);
     }
 
-    protected function getPriceId(string $plan): string
+    protected function getPriceId(string $plan, string $interval = 'monthly'): string
     {
         $priceIds = config('billing.stripe.prices');
 
-        return $priceIds[$plan] ?? throw new \InvalidArgumentException("Invalid plan: {$plan}");
+        if (!isset($priceIds[$plan])) {
+            throw new \InvalidArgumentException("Invalid plan: {$plan}");
+        }
+
+        if (!isset($priceIds[$plan][$interval])) {
+            throw new \InvalidArgumentException("Invalid interval: {$interval} for plan: {$plan}");
+        }
+
+        $priceId = $priceIds[$plan][$interval];
+
+        if (empty($priceId)) {
+            throw new \InvalidArgumentException("Price ID not configured for plan: {$plan}, interval: {$interval}");
+        }
+
+        return $priceId;
     }
 
     protected function createAnonymousCheckout(string $priceId, string $plan, string $email)

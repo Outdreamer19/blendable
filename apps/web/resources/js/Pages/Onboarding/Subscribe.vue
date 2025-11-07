@@ -16,9 +16,38 @@
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight text-gray-900 dark:text-white mb-4">
             Welcome to Blendable
           </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
             You're just one step away from getting started. We recommend the Pro plan to get you up and running quickly.
           </p>
+
+          <!-- Monthly/Yearly Toggle -->
+          <div class="flex items-center justify-center gap-2 mb-8">
+            <div class="relative inline-flex items-center gap-2">
+              <div class="inline-flex bg-gray-100 dark:bg-slate-800 rounded-2xl p-1 border border-gray-200/50 dark:border-slate-700/50 shadow-sm">
+                <button @click="isYearly = false" :class="[
+                  'px-6 py-2 rounded-2xl font-medium text-sm transition-all relative z-10',
+                  !isYearly
+                    ? 'bg-gray-900 dark:bg-gray-700 text-white shadow-sm'
+                    : 'text-gray-700 dark:text-gray-300'
+                ]">
+                  Monthly
+                </button>
+                <button @click="isYearly = true" :class="[
+                  'px-6 py-2 rounded-2xl font-medium text-sm transition-all relative z-10',
+                  isYearly
+                    ? 'bg-gray-900 dark:bg-gray-700 text-white shadow-sm'
+                    : 'text-gray-700 dark:text-gray-300'
+                ]">
+                  Yearly
+                </button>
+              </div>
+              <span
+                v-if="isYearly"
+                class="bg-gray-900 dark:bg-gray-700 text-white text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap shadow-sm">
+                30% off
+              </span>
+            </div>
+          </div>
         </div>
 
         <!-- Recommended Plan (Pro) -->
@@ -34,7 +63,7 @@
             <div class="text-center mb-8">
               <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">{{ recommendedPlan.name }}</h3>
               <div class="flex items-baseline justify-center mb-4">
-                <span class="text-5xl font-bold text-gray-900 dark:text-white">${{ recommendedPlan.price }}</span>
+                <span class="text-5xl font-bold text-gray-900 dark:text-white">${{ getPlanPrice(recommendedPlan.key) }}</span>
                 <span class="text-xl text-gray-500 dark:text-gray-400 ml-2">/month</span>
               </div>
               <p class="text-gray-600 dark:text-gray-400 mb-6">
@@ -73,7 +102,7 @@
             <!-- Primary CTA -->
             <div class="space-y-4">
               <a
-                :href="route('billing.checkout', { plan: recommendedPlan.key })"
+                :href="route('billing.checkout', { plan: recommendedPlan.key, interval: isYearly ? 'yearly' : 'monthly' })"
                 class="block w-full text-center py-4 px-6 rounded-lg font-semibold text-white bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
               >
                 Continue with Pro Plan
@@ -109,7 +138,7 @@
             <div class="mb-6">
               <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
               <div class="flex items-baseline">
-                <span class="text-4xl font-bold text-gray-900 dark:text-white">${{ plan.price }}</span>
+                <span class="text-4xl font-bold text-gray-900 dark:text-white">${{ getPlanPrice(plan.key) }}</span>
                 <span class="text-lg text-gray-500 dark:text-gray-400 ml-2">/month</span>
               </div>
             </div>
@@ -144,7 +173,7 @@
 
             <!-- CTA Button -->
             <a
-              :href="route('billing.checkout', { plan: plan.key })"
+              :href="route('billing.checkout', { plan: plan.key, interval: isYearly ? 'yearly' : 'monthly' })"
               class="block w-full text-center py-3 px-6 rounded-lg font-semibold text-white bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 transition-all duration-200"
             >
               Select {{ plan.name }}
@@ -202,6 +231,25 @@ interface Props {
 const props = defineProps<Props>()
 
 const showAllPlans = ref(false)
+const isYearly = ref(false)
+
+// Price mapping for monthly/yearly
+const priceMap: Record<string, { monthly: number; yearly: number }> = {
+  pro: {
+    monthly: 19.99,
+    yearly: 13, // 30% off
+  },
+  business: {
+    monthly: 79,
+    yearly: 55, // 30% off
+  },
+}
+
+const getPlanPrice = (planKey: string): string => {
+  const prices = priceMap[planKey] || { monthly: 0, yearly: 0 }
+  const price = isYearly.value ? prices.yearly : prices.monthly
+  return price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
 
 // Get recommended plan (Pro)
 const recommendedPlan = computed(() => {

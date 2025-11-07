@@ -204,6 +204,36 @@
         <div class="bg-white shadow rounded-lg">
           <div class="px-4 py-5 sm:p-6">
             <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Available Plans</h3>
+            
+            <!-- Monthly/Yearly Toggle -->
+            <div class="flex items-center justify-center gap-2 mb-6">
+              <div class="relative inline-flex items-center gap-2">
+                <div class="inline-flex bg-gray-100 dark:bg-slate-800 rounded-2xl p-1 border border-gray-200/50 dark:border-slate-700/50 shadow-sm">
+                  <button @click="isYearly = false" :class="[
+                    'px-6 py-2 rounded-2xl font-medium text-sm transition-all relative z-10',
+                    !isYearly
+                      ? 'bg-gray-900 dark:bg-gray-700 text-white shadow-sm'
+                      : 'text-gray-700 dark:text-gray-300'
+                  ]">
+                    Monthly
+                  </button>
+                  <button @click="isYearly = true" :class="[
+                    'px-6 py-2 rounded-2xl font-medium text-sm transition-all relative z-10',
+                    isYearly
+                      ? 'bg-gray-900 dark:bg-gray-700 text-white shadow-sm'
+                      : 'text-gray-700 dark:text-gray-300'
+                  ]">
+                    Yearly
+                  </button>
+                </div>
+                <span
+                  v-if="isYearly"
+                  class="bg-gray-900 dark:bg-gray-700 text-white text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap shadow-sm">
+                  30% off
+                </span>
+              </div>
+            </div>
+
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
               <div 
                 v-for="plan in plans" 
@@ -216,7 +246,7 @@
                 </div>
                 <h4 class="text-lg font-semibold text-gray-900 mb-2">{{ plan.name }}</h4>
                 <div class="text-3xl font-bold text-gray-900 mb-4">
-                  ${{ plan.price }}<span class="text-lg text-gray-500">/month</span>
+                  ${{ getPlanPrice(plan.key) }}<span class="text-lg text-gray-500">/month</span>
                 </div>
                 <ul class="space-y-2 text-sm text-gray-600">
                   <li>{{ plan.tokens.toLocaleString() }} tokens/month</li>
@@ -227,7 +257,7 @@
                   <li v-else>Unlimited seats</li>
                 </ul>
                 <a
-                  :href="route('billing.checkout', { plan: plan.key })"
+                  :href="route('billing.checkout', { plan: plan.key, interval: isYearly ? 'yearly' : 'monthly' })"
                   class="mt-4 w-full text-white py-2 px-4 rounded-md transition duration-150 ease-in-out text-center block"
                   :class="plan.key === 'pro' 
                     ? 'bg-indigo-600 hover:bg-indigo-700' 
@@ -245,6 +275,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { Link } from '@inertiajs/vue3'
 import AppLayout from '@/Layouts/AppLayout.vue'
 
@@ -315,6 +346,26 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const isYearly = ref(false)
+
+// Price mapping for monthly/yearly
+const priceMap: Record<string, { monthly: number; yearly: number }> = {
+  pro: {
+    monthly: 19.99,
+    yearly: 13, // 30% off
+  },
+  business: {
+    monthly: 79,
+    yearly: 55, // 30% off
+  },
+}
+
+const getPlanPrice = (planKey: string): string => {
+  const prices = priceMap[planKey] || { monthly: 0, yearly: 0 }
+  const price = isYearly.value ? prices.yearly : prices.monthly
+  return price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
 
 const formatNumber = (num: number) => {
   return new Intl.NumberFormat().format(num)
