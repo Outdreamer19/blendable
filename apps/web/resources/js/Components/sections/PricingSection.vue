@@ -164,7 +164,7 @@ const isYearly = ref(false)
 
 const plans = {
 	pro: {
-		monthly: 19,
+		monthly: 19.99,
 		yearly: 13, // 30% off
 		features: [
 			'500k tokens per month',
@@ -195,6 +195,6 @@ const plans = {
 
 const getPrice = (plan: 'pro' | 'business'): string => {
 	const price = isYearly.value ? plans[plan].yearly : plans[plan].monthly
-	return `$${price.toLocaleString()}`
+	return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 </script>

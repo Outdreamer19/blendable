@@ -13,7 +13,7 @@ return [
             'monthly_tokens' => 2000000,
             'seats_included' => 5,
             'models' => ['*'],
-            'features' => ['team_workspace', 'shared_memory', 'analytics', 'roles'],
+            'features' => ['file_uploads', 'priority_queue', 'saved_prompts', 'team_workspace', 'shared_memory', 'analytics', 'roles'],
         ],
     ],
 

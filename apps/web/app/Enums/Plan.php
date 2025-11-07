@@ -51,7 +51,10 @@ enum Plan: string
     {
         return match ($this) {
             self::PRO => ['file_uploads', 'priority_queue', 'saved_prompts'],
-            self::BUSINESS => ['team_workspace', 'shared_memory', 'analytics', 'roles'],
+            self::BUSINESS => array_merge(
+                self::PRO->features(),
+                ['team_workspace', 'shared_memory', 'analytics', 'roles']
+            ),
         };
     }
 
