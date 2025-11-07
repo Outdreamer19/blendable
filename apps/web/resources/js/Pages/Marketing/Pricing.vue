@@ -177,7 +177,7 @@ const faqs = [
   {
     question: 'Can I get a custom plan for my organization?',
     answer:
-      'Absolutely! Contact us at hello@blendable.app to discuss enterprise pricing and custom features.',
+      'Absolutely! Contact us at support@blendable.com to discuss enterprise pricing and custom features.',
   },
 ]
 </script>

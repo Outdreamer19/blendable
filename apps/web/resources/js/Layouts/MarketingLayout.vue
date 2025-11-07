@@ -207,10 +207,10 @@
               </li>
               <li>
                 <a
-                  href="mailto:hello@blendable.com"
+                  href="mailto:support@blendable.com"
                   class="text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
-                  hello@blendable.com
+                  support@blendable.com
                 </a>
               </li>
             </ul>
