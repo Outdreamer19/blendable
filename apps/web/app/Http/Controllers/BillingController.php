@@ -159,7 +159,17 @@ class BillingController extends Controller
                 ->with('info', 'Please create an account to continue with checkout.');
         }
 
-        $priceId = $this->getPriceId($plan);
+        try {
+            $priceId = $this->getPriceId($plan);
+        } catch (\InvalidArgumentException $e) {
+            \Log::error('Stripe price ID not configured', [
+                'plan' => $plan,
+                'error' => $e->getMessage(),
+            ]);
+            
+            return redirect()->route('pricing')
+                ->with('error', 'This plan is not available at the moment. Please contact support.');
+        }
 
         try {
             // Authenticated user - use Cashier
@@ -175,6 +185,16 @@ class BillingController extends Controller
             return redirect($checkout->url);
         } catch (IncompletePayment $exception) {
             return redirect()->route('cashier.payment', $exception->payment->id);
+        } catch (\Exception $e) {
+            \Log::error('Stripe checkout failed', [
+                'user_id' => $user->id,
+                'plan' => $plan,
+                'price_id' => $priceId,
+                'error' => $e->getMessage(),
+            ]);
+            
+            return redirect()->route('pricing')
+                ->with('error', 'Unable to process checkout. Please try again or contact support.');
         }
     }
 
