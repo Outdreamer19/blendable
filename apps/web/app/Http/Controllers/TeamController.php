@@ -35,9 +35,12 @@ class TeamController extends Controller
             'description' => 'nullable|string',
         ]);
 
+        $baseSlug = Str::slug($request->name);
+        $slug = $this->generateUniqueSlug(Team::class, $baseSlug);
+
         $team = Team::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'description' => $request->description,
             'is_active' => true,
         ]);
@@ -82,9 +85,12 @@ class TeamController extends Controller
             'description' => 'nullable|string',
         ]);
 
+        $baseSlug = Str::slug($request->name);
+        $slug = $this->generateUniqueSlug(Team::class, $baseSlug, $team->id);
+
         $team->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'description' => $request->description,
         ]);
 
@@ -148,5 +154,40 @@ class TeamController extends Controller
         ];
 
         return $permissions[$role] ?? [];
+    }
+
+    /**
+     * Generate a unique slug for a model by appending a number if needed.
+     *
+     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $modelClass
+     * @param  int|null  $excludeId  Exclude this ID from the uniqueness check (for updates)
+     */
+    protected function generateUniqueSlug(string $modelClass, string $baseSlug, ?int $excludeId = null): string
+    {
+        $slug = $baseSlug;
+        $counter = 1;
+
+        while ($this->slugExists($modelClass, $slug, $excludeId)) {
+            $slug = $baseSlug.'-'.$counter;
+            $counter++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Check if a slug exists for a model.
+     *
+     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $modelClass
+     */
+    protected function slugExists(string $modelClass, string $slug, ?int $excludeId = null): bool
+    {
+        $query = $modelClass::where('slug', $slug);
+
+        if ($excludeId !== null) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        return $query->exists();
     }
 }

@@ -47,10 +47,13 @@ class WorkspaceController extends Controller
         $team = \App\Models\Team::findOrFail($request->team_id);
         $this->authorize('update', $team);
 
+        $baseSlug = Str::slug($request->name);
+        $slug = $this->generateUniqueSlug(Workspace::class, $baseSlug);
+
         $workspace = Workspace::create([
             'team_id' => $request->team_id,
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'description' => $request->description,
             'is_active' => true,
         ]);
@@ -100,9 +103,12 @@ class WorkspaceController extends Controller
             'team_id' => 'required|exists:teams,id',
         ]);
 
+        $baseSlug = Str::slug($request->name);
+        $slug = $this->generateUniqueSlug(Workspace::class, $baseSlug, $workspace->id);
+
         $workspace->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'description' => $request->description,
             'team_id' => $request->team_id,
         ]);
@@ -167,5 +173,40 @@ class WorkspaceController extends Controller
         ];
 
         return $permissions[$role] ?? [];
+    }
+
+    /**
+     * Generate a unique slug for a model by appending a number if needed.
+     *
+     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $modelClass
+     * @param  int|null  $excludeId  Exclude this ID from the uniqueness check (for updates)
+     */
+    protected function generateUniqueSlug(string $modelClass, string $baseSlug, ?int $excludeId = null): string
+    {
+        $slug = $baseSlug;
+        $counter = 1;
+
+        while ($this->slugExists($modelClass, $slug, $excludeId)) {
+            $slug = $baseSlug.'-'.$counter;
+            $counter++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Check if a slug exists for a model.
+     *
+     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $modelClass
+     */
+    protected function slugExists(string $modelClass, string $slug, ?int $excludeId = null): bool
+    {
+        $query = $modelClass::where('slug', $slug);
+
+        if ($excludeId !== null) {
+            $query->where('id', '!=', $excludeId);
+        }
+
+        return $query->exists();
     }
 }

@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
     public function create(Request $request): Response
     {
         $plan = $request->query('plan');
-        
+
         return Inertia::render('Auth/Register', [
             'plan' => $plan && in_array($plan, ['pro', 'business']) ? $plan : null,
         ]);
@@ -50,9 +50,12 @@ class RegisteredUserController extends Controller
         ]);
 
         // Auto-create a personal team for the user
+        $baseSlug = Str::slug($user->name.'s team');
+        $teamSlug = $this->generateUniqueSlug(Team::class, $baseSlug);
+
         $personalTeam = Team::create([
             'name' => $user->name."'s Team",
-            'slug' => Str::slug($user->name.'s team'),
+            'slug' => $teamSlug,
             'description' => 'Personal team for '.$user->name,
             'is_active' => true,
         ]);
@@ -65,10 +68,13 @@ class RegisteredUserController extends Controller
         ]);
 
         // Auto-create a default workspace in the personal team
+        $baseWorkspaceSlug = Str::slug($user->name.'s workspace');
+        $workspaceSlug = $this->generateUniqueSlug(Workspace::class, $baseWorkspaceSlug);
+
         $defaultWorkspace = Workspace::create([
             'team_id' => $personalTeam->id,
             'name' => 'My Workspace',
-            'slug' => Str::slug($user->name.'s workspace'),
+            'slug' => $workspaceSlug,
             'description' => 'Default workspace for '.$user->name,
             'is_active' => true,
         ]);
@@ -90,5 +96,23 @@ class RegisteredUserController extends Controller
         // Redirect to onboarding/subscription page (no AppLayout)
         return redirect(route('billing.index', absolute: false))
             ->with('success', 'Welcome! Choose a plan to get started.');
+    }
+
+    /**
+     * Generate a unique slug for a model by appending a number if needed.
+     *
+     * @param  class-string<\Illuminate\Database\Eloquent\Model>  $modelClass
+     */
+    protected function generateUniqueSlug(string $modelClass, string $baseSlug): string
+    {
+        $slug = $baseSlug;
+        $counter = 1;
+
+        while ($modelClass::where('slug', $slug)->exists()) {
+            $slug = $baseSlug.'-'.$counter;
+            $counter++;
+        }
+
+        return $slug;
     }
 }
