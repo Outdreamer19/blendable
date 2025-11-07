@@ -173,8 +173,12 @@ class BillingController extends Controller
                 'error' => $e->getMessage(),
             ]);
             
+            $errorMessage = $interval === 'yearly' 
+                ? 'Yearly billing is not yet available. Please select monthly billing or contact support.'
+                : 'This plan is not available at the moment. Please contact support.';
+            
             return redirect()->route('pricing')
-                ->with('error', 'This plan is not available at the moment. Please contact support.');
+                ->with('error', $errorMessage);
         }
 
         try {
