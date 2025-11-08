@@ -221,9 +221,7 @@ class StripeService
      */
     public function isAdmin(User $user): bool
     {
-        $adminEmails = array_filter(
-            array_map('trim', explode(',', env('ADMIN_EMAILS', '')))
-        );
+        $adminEmails = config('app.admin_emails', []);
         
         return in_array(strtolower($user->email), array_map('strtolower', $adminEmails));
     }

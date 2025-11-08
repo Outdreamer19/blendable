@@ -123,4 +123,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Emails
+    |--------------------------------------------------------------------------
+    |
+    | Comma-separated list of admin email addresses that bypass subscription
+    | requirements. These users will have full access without a subscription.
+    |
+    */
+
+    'admin_emails' => array_filter(
+        array_map('trim', explode(',', env('ADMIN_EMAILS', '')))
+    ),
+
 ];
