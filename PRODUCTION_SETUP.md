@@ -139,10 +139,12 @@ If you're getting a 419 error when trying to log in or submit forms, check the f
      
      **Method 1: Page Rules (Simpler)**
      - Go to Cloudflare Dashboard → Rules → Page Rules
-     - Create a new page rule for: `*blendable.app/chats/*/send-message`
+     - Create a new page rule
+     - URL pattern: `blendable.app/chats/*/send-message` (or `*/chats/*/send-message` to match all subdomains)
      - Set "Cache Level" to "Bypass"
      - Set "Browser Integrity Check" to "Off" (optional, helps with API requests)
      - Save the rule
+     - **Note:** If you see a warning about DNS configuration, make sure your domain is proxied (orange cloud) in DNS settings
      
      **Method 2: Configuration Rules (More Control)**
      - Go to Cloudflare Dashboard → Rules → Configuration Rules
