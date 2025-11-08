@@ -199,7 +199,11 @@ const sendMessage = async () => {
       throw new Error('CSRF token not found')
     }
 
-    const response = await fetch(`/chats/${props.chat.id}/send-message`, {
+    // Get API base URL from meta tag or use current origin
+    const apiBaseUrl = document.querySelector('meta[name="api-base-url"]')?.getAttribute('content') || ''
+    const chatUrl = `${apiBaseUrl}/chats/${props.chat.id}/send-message`
+    
+    const response = await fetch(chatUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

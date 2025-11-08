@@ -157,12 +157,36 @@ If you're getting a 419 error when trying to log in or submit forms, check the f
        - Save the rule
      
      **Important Notes:**
-     - Cloudflare Free plan has a 100-second timeout limit
+     - Cloudflare Free plan has a **hard 100-second timeout limit** that cannot be bypassed
      - Cloudflare Pro plan has a 600-second timeout limit
-     - If you're on Free plan and still getting timeouts, consider:
-       1. Upgrading to Pro plan ($20/month)
-       2. Using a subdomain (e.g., `api.blendable.app`) that bypasses Cloudflare proxy
-       3. Using Cloudflare Workers to handle streaming (advanced)
+     - **If you're on Free plan and still getting 502 errors, you MUST use one of these solutions:**
+     
+     **Solution 1: Use a Subdomain (Recommended for Free Plan)**
+     1. Go to Cloudflare Dashboard → DNS → Records
+     2. Add a new A record:
+        - Name: `api` (or any subdomain you prefer)
+        - IPv4 address: Your server IP (same as blendable.app)
+        - Proxy status: **Gray cloud (DNS only)** - This bypasses Cloudflare proxy
+        - TTL: Auto
+     3. Wait for DNS propagation (usually a few minutes)
+     4. Add to your `.env` file on the server:
+        ```bash
+        API_BASE_URL=https://api.blendable.app
+        ```
+     5. Clear config cache:
+        ```bash
+        php artisan config:clear && php artisan config:cache
+        ```
+     6. The chat endpoints will now use `api.blendable.app` which bypasses Cloudflare timeout
+     
+     **Solution 2: Upgrade to Cloudflare Pro**
+     - Upgrade to Pro plan ($20/month) for 600-second timeout
+     - No code changes needed
+     
+     **Solution 3: Optimize Chat Responses**
+     - Reduce `max_tokens` in AI model requests
+     - Use faster models for quick responses
+     - Implement response chunking to send data faster
 
 4. **Clear config cache** after changing .env:
    ```bash

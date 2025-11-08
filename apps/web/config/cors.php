@@ -21,6 +21,9 @@ return [
     'allowed_origins' => [
         env('FRONTEND_URL', 'http://localhost:3000'),
         env('APP_URL', 'http://localhost:8000'),
+        'https://blendable.app',
+        'https://www.blendable.app',
+        'https://api.blendable.app', // For subdomain API bypass
     ],
 
     'allowed_origins_patterns' => [],

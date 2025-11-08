@@ -239,7 +239,11 @@ const sendMessage = async (message: string) => {
 			}
 		}
 
-		const response = await fetch(`/chats/${activeChat.value.id}/send-message`, {
+		// Get API base URL from meta tag or use current origin
+		const apiBaseUrl = document.querySelector('meta[name="api-base-url"]')?.getAttribute('content') || ''
+		const chatUrl = `${apiBaseUrl}/chats/${activeChat.value.id}/send-message`
+		
+		const response = await fetch(chatUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
