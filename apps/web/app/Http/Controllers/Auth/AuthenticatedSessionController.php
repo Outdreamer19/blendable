@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Services\StripeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,24 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        $user = Auth::user();
+        $stripeService = app(StripeService::class);
+        
+        // Check if user is admin - admins can always access dashboard
+        if ($stripeService->isAdmin($user)) {
+            return redirect()->route('dashboard');
+        }
+        
+        // For regular users, check subscription status
+        $subscriptionStatus = $stripeService->getSubscriptionStatus($user);
+        
+        // If user has active subscription, go to dashboard
+        if ($subscriptionStatus['has_subscription'] && in_array($subscriptionStatus['status'], ['active', 'trialing'])) {
+            return redirect()->route('dashboard');
+        }
+        
+        // Otherwise, redirect to billing (which will show onboarding if no subscription)
+        return redirect()->route('billing.index');
     }
 
     /**
