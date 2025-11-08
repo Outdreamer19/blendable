@@ -136,15 +136,31 @@ If you're getting a 419 error when trying to log in or submit forms, check the f
    - Ensure Cloudflare SSL/TLS mode is set to "Full" or "Full (strict)"
    - Make sure "Always Use HTTPS" is enabled in Cloudflare
    - **For Chat Streaming (502 Bad Gateway Fix):**
+     
+     **Method 1: Page Rules (Simpler)**
      - Go to Cloudflare Dashboard → Rules → Page Rules
      - Create a new page rule for: `*blendable.app/chats/*/send-message`
      - Set "Cache Level" to "Bypass"
-     - Set "Disable Performance" to ON
-     - Set "Disable Security" to OFF (keep security enabled)
-     - **Important:** On Cloudflare Pro plan or higher, you can increase timeout:
-       - Go to Network → Page Rules → Advanced
-       - Add custom header: `X-Cloudflare-Timeout: 600` (10 minutes)
-     - **Alternative:** If on free plan, consider upgrading or using a subdomain for chat endpoints
+     - Set "Browser Integrity Check" to "Off" (optional, helps with API requests)
+     - Save the rule
+     
+     **Method 2: Configuration Rules (More Control)**
+     - Go to Cloudflare Dashboard → Rules → Configuration Rules
+     - Click "Create rule"
+     - Name: "Chat Streaming Bypass"
+     - Expression: `(http.request.uri.path contains "/chats/" and http.request.uri.path contains "/send-message")`
+     - Then the settings are:
+       - Cache Level: Bypass
+       - Browser Integrity Check: Off
+       - Save the rule
+     
+     **Important Notes:**
+     - Cloudflare Free plan has a 100-second timeout limit
+     - Cloudflare Pro plan has a 600-second timeout limit
+     - If you're on Free plan and still getting timeouts, consider:
+       1. Upgrading to Pro plan ($20/month)
+       2. Using a subdomain (e.g., `api.blendable.app`) that bypasses Cloudflare proxy
+       3. Using Cloudflare Workers to handle streaming (advanced)
 
 4. **Clear config cache** after changing .env:
    ```bash
