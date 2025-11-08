@@ -135,6 +135,16 @@ If you're getting a 419 error when trying to log in or submit forms, check the f
    - The `TrustProxies` middleware is already configured to trust all proxies
    - Ensure Cloudflare SSL/TLS mode is set to "Full" or "Full (strict)"
    - Make sure "Always Use HTTPS" is enabled in Cloudflare
+   - **For Chat Streaming (502 Bad Gateway Fix):**
+     - Go to Cloudflare Dashboard → Rules → Page Rules
+     - Create a new page rule for: `*blendable.app/chats/*/send-message`
+     - Set "Cache Level" to "Bypass"
+     - Set "Disable Performance" to ON
+     - Set "Disable Security" to OFF (keep security enabled)
+     - **Important:** On Cloudflare Pro plan or higher, you can increase timeout:
+       - Go to Network → Page Rules → Advanced
+       - Add custom header: `X-Cloudflare-Timeout: 600` (10 minutes)
+     - **Alternative:** If on free plan, consider upgrading or using a subdomain for chat endpoints
 
 4. **Clear config cache** after changing .env:
    ```bash

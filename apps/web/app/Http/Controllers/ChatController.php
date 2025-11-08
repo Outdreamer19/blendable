@@ -365,9 +365,13 @@ class ChatController extends Controller
         });
 
         $response->headers->set('Content-Type', 'text/event-stream');
-        $response->headers->set('Cache-Control', 'no-cache');
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
         $response->headers->set('Connection', 'keep-alive');
         $response->headers->set('X-Accel-Buffering', 'no'); // Disable buffering for Nginx
+        $response->headers->set('X-Accel-Timeout', '600'); // 10 minutes for Nginx
+        $response->headers->set('Keep-Alive', 'timeout=600, max=1000');
+        // Set a longer timeout for streaming responses
+        set_time_limit(600); // 10 minutes
 
         return $response;
     }
