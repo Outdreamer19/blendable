@@ -13,7 +13,43 @@ class SecurityHeaders
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Handle OPTIONS preflight requests for CORS
+        $apiBaseUrl = config('app.api_base_url');
+        if ($apiBaseUrl && $request->getHost() === parse_url($apiBaseUrl, PHP_URL_HOST) && $request->isMethod('OPTIONS')) {
+            $origin = $request->headers->get('Origin');
+            $allowedOrigins = [
+                'https://blendable.app',
+                'https://www.blendable.app',
+            ];
+            
+            if (in_array($origin, $allowedOrigins)) {
+                return response('', 204)
+                    ->header('Access-Control-Allow-Origin', $origin)
+                    ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+                    ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CSRF-TOKEN, X-Requested-With, Accept')
+                    ->header('Access-Control-Allow-Credentials', 'true')
+                    ->header('Access-Control-Max-Age', '86400');
+            }
+        }
+
         $response = $next($request);
+
+        // Add CORS headers for API subdomain requests (to allow cross-origin from main domain)
+        if ($apiBaseUrl && $request->getHost() === parse_url($apiBaseUrl, PHP_URL_HOST)) {
+            $origin = $request->headers->get('Origin');
+            $allowedOrigins = [
+                'https://blendable.app',
+                'https://www.blendable.app',
+            ];
+            
+            if (in_array($origin, $allowedOrigins)) {
+                $response->headers->set('Access-Control-Allow-Origin', $origin);
+                $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CSRF-TOKEN, X-Requested-With, Accept');
+                $response->headers->set('Access-Control-Allow-Credentials', 'true');
+                $response->headers->set('Access-Control-Max-Age', '86400');
+            }
+        }
 
         // Security headers
         $response->headers->set('X-Content-Type-Options', 'nosniff');
