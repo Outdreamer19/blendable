@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        @if(env('API_BASE_URL'))
-        <meta name="api-base-url" content="{{ env('API_BASE_URL') }}">
+        @if(config('app.api_base_url'))
+        <meta name="api-base-url" content="{{ config('app.api_base_url') }}">
         @endif
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>

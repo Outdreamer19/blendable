@@ -56,6 +56,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | API Base URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used for API endpoints that need to bypass Cloudflare
+    | proxy to avoid timeout issues with streaming responses. If not set,
+    | the application will use the APP_URL.
+    |
+    */
+
+    'api_base_url' => env('API_BASE_URL', null),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |
