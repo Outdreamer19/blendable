@@ -61,7 +61,7 @@ class SecurityHeaders
         // Content Security Policy
         $isDevelopment = app()->environment('local', 'development');
 
-        $scriptSrc = "'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com";
+        $scriptSrc = "'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com https://static.cloudflareinsights.com";
         $connectSrc = "'self' https://api.openai.com https://api.anthropic.com https://generativelanguage.googleapis.com https://checkout.stripe.com";
         
         // Add API base URL to connect-src if configured (for bypassing Cloudflare timeout)
