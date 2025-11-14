@@ -27,6 +27,12 @@ class SecurityHeaders
 
         $scriptSrc = "'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com";
         $connectSrc = "'self' https://api.openai.com https://api.anthropic.com https://generativelanguage.googleapis.com https://checkout.stripe.com";
+        
+        // Add API base URL to connect-src if configured (for bypassing Cloudflare timeout)
+        $apiBaseUrl = config('app.api_base_url');
+        if ($apiBaseUrl) {
+            $connectSrc .= ' ' . $apiBaseUrl;
+        }
 
         // Add Vite dev server support in development
         if ($isDevelopment) {
